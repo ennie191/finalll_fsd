@@ -1,15 +1,22 @@
-// filepath: /Users/eeshanithakur/Desktop/finalll_fsd/backend/index.js
-const { connectDB } = require("./db");
-connectDB();
+require("dotenv").config();
 const express = require("express");
-const cors = require("cors"); // Import cors
-const authRoutes = require("./routes/authRoutes");
+const cors = require("cors");
+const { connectDB } = require("./db/connectDB"); // Import the database connection
+const authRoutes = require("./routes/authRoutes"); // Import auth routes
+const projectRoutes = require("./routes/projectRoutes"); // Import project routes
+const collaborationRoutes = require("./routes/collaborationRoutes"); // Import collaboration routes
+const statsRoutes = require("./routes/statsRoutes"); // Import stats routes
 
+// Initialize the app
 const app = express();
+
+// Connect to MongoDB
+connectDB();
 
 // Enable CORS
 app.use(cors({ origin: "http://localhost:5173" })); // Allow requests from the frontend
 
+// Middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -36,9 +43,13 @@ app.use((req, res, next) => {
 });
 
 // Register routes
-app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes); // Authentication routes
+app.use("/api/projects", projectRoutes); // Project routes
+app.use("/api/collaborations", collaborationRoutes); // Collaboration request routes
+app.use("/api/stats", statsRoutes); // Statistics routes
 
-const PORT = process.env.PORT || 3000;
+// Start the server
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
