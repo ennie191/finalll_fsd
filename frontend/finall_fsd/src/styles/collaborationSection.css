@@ -1,0 +1,149 @@
+/* src/styles/collaborationSection.css */
+
+:root {
+  --dark-blue: #0a1929;
+  --dark-blue-lighter: #112240;
+  --cyan-primary: #00e5ff;
+  --cyan-glow: rgba(0, 229, 255, 0.5);
+  --cyan-dim: rgba(0, 229, 255, 0.2);
+  --shadow-dark: #05101d;
+  --shadow-light: #152a45;
+  --text-light: #e0f7fa;
+  --text-dim: #b0bec5;
+}
+
+body {
+  background-color: var(--dark-blue);
+  color: var(--text-light);
+}
+
+.collaboration-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns */
+  gap: 1.5rem;
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: var(--dark-blue);
+  border-radius: 16px;
+}
+
+.collaboration-card {
+  background-color: var(--dark-blue);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 8px 8px 16px var(--shadow-dark),
+              -8px -8px 16px var(--shadow-light);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.collaboration-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 12px 12px 20px var(--shadow-dark),
+              -12px -12px 20px var(--shadow-light),
+              0 0 20px var(--cyan-dim);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(145deg, var(--dark-blue-lighter), var(--dark-blue));
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 2px 2px 5px var(--shadow-dark),
+              inset -2px -2px 5px var(--shadow-light),
+              4px 4px 8px var(--shadow-dark),
+              -4px -4px 8px var(--shadow-light);
+}
+
+.role-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--dark-blue-lighter);
+  color: var(--cyan-primary);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-radius: 20px;
+  box-shadow: inset 1px 1px 3px var(--shadow-dark),
+              inset -1px -1px 3px var(--shadow-light);
+  text-shadow: 0 0 5px var(--cyan-dim);
+}
+
+.collaboration-card h3 {
+  font-size: 1.25rem;
+  color: var(--cyan-primary);
+  margin: 0.75rem 0;
+  text-shadow: 0 0 8px var(--cyan-dim);
+  letter-spacing: 0.5px;
+}
+
+.collaboration-card p {
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+  font-size: 0.9rem;
+}
+
+.collaboration-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--cyan-primary);
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+  border-radius: 30px;
+  background: var(--dark-blue);
+  box-shadow: 4px 4px 8px var(--shadow-dark),
+              -4px -4px 8px var(--shadow-light);
+  align-self: flex-start;
+  transition: all 0.3s ease;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+.collaboration-link:hover {
+  box-shadow: 2px 2px 4px var(--shadow-dark),
+              -2px -2px 4px var(--shadow-light),
+              0 0 12px var(--cyan-dim);
+  text-shadow: 0 0 5px var(--cyan-glow);
+}
+
+/* Add glowing arrow effect */
+.collaboration-link:hover::after {
+  content: "→";
+  margin-left: 8px;
+  display: inline-block;
+  animation: glowPulse 2s infinite;
+  transition: transform 0.3s ease;
+  transform: translateX(3px);
+}
+
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 5px var(--cyan-dim); }
+  50% { text-shadow: 0 0 15px var(--cyan-glow); }
+  100% { text-shadow: 0 0 5px var(--cyan-dim); }
+}
+
+/* For very small screens, allow stacking but maintain layout for larger screens */
+@media (max-width: 900px) {
+  .collaboration-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .collaboration-grid {
+    grid-template-columns: 1fr;
+  }
+}

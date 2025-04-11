@@ -1,0 +1,470 @@
+/* 🌸 General Styling *//* global.css - Global styles for the entire TISD application */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap');
+
+/* ==================== RESET & BASE STYLES ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2E8B57;    /* Sea Green */
+  --secondary: #F5F5DC;  /* Beige */
+  --accent: #4682B4;     /* Steel Blue */
+  --neutral: #F8F9FA;    /* Off-white */
+  --text: #333333;       /* Dark Gray */
+  --text-light: #666666; /* Medium Gray */
+  --success: #28a745;    /* Green */
+  --warning: #ffc107;    /* Yellow */
+  --danger: #dc3545;     /* Red */
+  --light: #ffffff;      /* White */
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--text);
+  background-color: var(--neutral);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent);
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+/* ==================== LAYOUT STYLES ==================== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  flex-grow: 1;
+}
+
+/* ==================== NAVBAR STYLES ==================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary);
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 10px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.college-logo {
+  height: 50px;
+  margin-right: 1rem;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--light);
+  letter-spacing: 2px;
+}
+
+.brand-tagline {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  letter-spacing: 0.5px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 0.5rem;
+  position: relative;
+}
+
+.nav-links a {
+  color: var(--light);
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  display: block;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 4px;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.arrow-down {
+  display: inline-block;
+  margin-left: 5px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--light);
+  vertical-align: middle;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--light);
+  min-width: 180px;
+  box-shadow: 0 8px 16px var(--shadow);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: 1;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.sdg-dropdown {
+  width: 320px;
+}
+
+.dropdown-content a {
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: var(--secondary);
+  color: var(--primary);
+}
+
+.sdg-number {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  background-color: var(--accent);
+  color: var(--light);
+  border-radius: 50%;
+  margin-right: 8px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+/* ==================== BUTTON STYLES ==================== */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--primary);
+  color: var(--light);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  background-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ==================== CARD STYLES ==================== */
+.card {
+  background-color: var(--light);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px var(--shadow);
+}
+
+/* ==================== SDG SPECIFIC STYLES ==================== */
+/* SDG Colors for specific SDG pages */
+.sdg-1 { --sdg-accent-color: #E5243B; } /* No Poverty */
+.sdg-2 { --sdg-accent-color: #DDA63A; } /* Zero Hunger */
+.sdg-3 { --sdg-accent-color: #4C9F38; } /* Good Health and Well-being */
+.sdg-4 { --sdg-accent-color: #C5192D; } /* Quality Education */
+.sdg-5 { --sdg-accent-color: #FF3A21; } /* Gender Equality */
+.sdg-6 { --sdg-accent-color: #26BDE2; } /* Clean Water and Sanitation */
+.sdg-7 { --sdg-accent-color: #FCC30B; } /* Affordable and Clean Energy */
+.sdg-8 { --sdg-accent-color: #A21942; } /* Decent Work and Economic Growth */
+.sdg-9 { --sdg-accent-color: #FD6925; } /* Industry, Innovation, and Infrastructure */
+.sdg-10 { --sdg-accent-color: #DD1367; } /* Reduced Inequalities */
+.sdg-11 { --sdg-accent-color: #FD9D24; } /* Sustainable Cities and Communities */
+.sdg-12 { --sdg-accent-color: #BF8B2E; } /* Responsible Consumption and Production */
+.sdg-13 { --sdg-accent-color: #3F7E44; } /* Climate Action */
+.sdg-14 { --sdg-accent-color: #0A97D9; } /* Life Below Water */
+.sdg-15 { --sdg-accent-color: #56C02B; } /* Life on Land */
+.sdg-16 { --sdg-accent-color: #00689D; } /* Peace, Justice and Strong Institutions */
+.sdg-17 { --sdg-accent-color: #19486A; } /* Partnerships for the Goals */
+
+/* SDG Page Styling */
+.sdg-page {
+  --sdg-color: var(--sdg-accent-color, var(--primary));
+}
+
+.sdg-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--light);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px var(--shadow);
+  border-left: 5px solid var(--sdg-color);
+}
+
+.sdg-icon-container {
+  margin-right: 1.5rem;
+}
+
+.sdg-number {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sdg-color);
+  color: var(--light);
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.sdg-title-container h1 {
+  color: var(--sdg-color);
+  margin-bottom: 0.5rem;
+}
+
+.sdg-description {
+  font-size: 1.1rem;
+  color: var(--text-light);
+}
+
+.projects-container {
+  padding: 20px;
+}
+
+.projects-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.project-box {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  padding: 20px;
+  width: 30%;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.project-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.project-description {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+/* ==================== RESPONSIVE STYLES ==================== */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .navbar-left {
+    margin-bottom: 1rem;
+  }
+  
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .dropdown-content {
+    width: 100%;
+    left: 0;
+  }
+  
+  .sdg-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .sdg-icon-container {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .content {
+    padding: 0 1.5rem;
+  }
+  /* contact.css */
+.contact {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.contact h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.contact-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid #ccc;
+  padding-top: 20px;
+}
+
+.contact-person {
+  width: 45%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.contact-person h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.contact-person p {
+  font-size: 1rem;
+  color: #555;
+  margin: 5px 0;
+}
+
+.contact-person p a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contact-person p a:hover {
+  text-decoration: underline;
+}
+
+/* Separator line */
+.separator {
+  width: 1px;
+  height: 150px;
+  background-color: #ccc;
+  margin: 0 30px;
+}
+/* mentors.css */
+
+.mentors-section, .collaborators-section {
+  padding: 50px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+.mentors-container, .collaborators-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.mentor-box, .collaborator-box {
+  width: 30%;
+  text-align: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.mentor-box:hover, .collaborator-box:hover {
+  transform: scale(1.05);
+}
+
+.mentor-box img, .collaborator-box img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+h3 {
+  color: #34495e;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+} 

@@ -1,0 +1,110 @@
+.sdg-dashboard {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: #0e1a2b; /* Dark blue neuromorphic background */
+  border-radius: 20px;
+  box-shadow: 
+    inset 8px 8px 16px #0a1422,
+    inset -8px -8px 16px #122038;
+  color: #e0f7ff;
+}
+
+/* Grid layout */
+.sdg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+/* SDG Card with glow */
+.sdg-item {
+  position: relative;
+  border-radius: 20px;
+  padding: 1.5rem;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  z-index: 0;
+}
+
+/* Glowing effect using pseudo-element */
+.sdg-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  z-index: -1;
+  filter: blur(30px);
+  background: inherit;
+  opacity: 0.9;
+  box-shadow: 0 0 25px currentColor, 0 0 50px currentColor, 0 0 75px currentColor;
+}
+
+
+.sdg-item:hover::before {
+  opacity: 1;
+}
+
+/* Icon styling */
+.sdg-icon {
+  width: 40px;
+  height: 40px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Text */
+.sdg-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.sdg-count {
+  font-size: 0.9rem;
+  color: #f5f5f5;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Progress bar */
+.sdg-bar-container {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.sdg-bar {
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 8px white;
+  transition: width 0.5s ease;
+}
+
+/* Legend */
+.sdg-legend {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #90e0ef;
+  text-shadow: 0 0 6px cyan;
+}
+
+@media (max-width: 768px) {
+  .sdg-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}

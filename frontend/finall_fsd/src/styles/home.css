@@ -1,0 +1,187 @@
+/* Overall Page Styling */
+body {
+  background: radial-gradient(circle at center, #0a0f2c, #060b1a);
+  color: #e0f7fa;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.home-container {
+  padding: 2rem;
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  color: #00f7ff;
+  text-shadow: 0 0 20px #00f7ff;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #b0c7d1;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.primary-button,
+.secondary-button {
+  background-color: #00f7ff;
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  box-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+  transition: transform 0.2s ease-in-out;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: scale(1.05);
+}
+
+/* Stats Container for Better Contrast */
+.stats-container {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+/* Stats Cards */
+.hero-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: #0f1123;
+  border-radius: 20px;
+  padding: 30px;
+  width: 200px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1.5px solid rgba(0, 255, 255, 0.25); /* Cyan border */
+  box-shadow:
+    0 8px 20px rgba(0, 255, 255, 0.15),   /* outer glow */
+    inset 0 0 8px rgba(0, 255, 255, 0.05); /* inner glow */;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 12px 30px rgba(0, 255, 255, 0.35),
+    inset 0 0 10px rgba(0, 255, 255, 0.1);
+}
+.stat-number {
+  font-size: 2.5rem;
+  color: #00f7ff;
+  text-shadow: 0 0 10px #00f7ff;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: #999;
+}
+
+/* Section Headers */
+.section-header h2 {
+  color: #00f7ff;
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 3rem;
+  text-shadow: 0 0 15px #00f7ff;
+}
+
+.section-header p {
+  text-align: center;
+  color: #b0c7d1;
+  margin-bottom: 1.5rem;
+}
+
+/* Filters */
+.filter-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.filter-controls select {
+  background-color: #101431;
+  color: #00f7ff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  box-shadow: inset 4px 4px 8px #05070f, inset -4px -4px 8px #15193c;
+}
+
+/* Project Grid */
+.project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.no-projects {
+  color: #aaa;
+  text-align: center;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.view-all {
+  display: block;
+  text-align: center;
+  margin-top: 2rem;
+  color: #00f7ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Collaboration & Testimonials */
+.collaboration-section,
+.testimonials {
+  margin-top: 4rem;
+}
+
+.testimonial-slider {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.testimonial-card {
+  background-color: #0f122b;
+  color: #e0f7fa;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 8px 8px 20px #05070f, -8px -8px 20px #15193c;
+  max-width: 600px;
+  text-align: center;
+}
+
+.testimonial-author {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}

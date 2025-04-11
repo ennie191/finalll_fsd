@@ -1,0 +1,120 @@
+/* 🌌 Navbar Neuromorphic Design */
+.navbar {
+    background: linear-gradient(135deg, #0a1e36, #123456); /* Dark Blue Gradient */
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    box-shadow: 8px 8px 15px #050c1a, -8px -8px 15px #142850;
+    border: 1px solid rgba(0, 255, 255, 0.3); /* Cyan Glow */
+  }
+  
+  
+  /* 🎨 Logo */
+  .college-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    box-shadow: inset 5px 5px 10px #050c1a, inset -5px -5px 10px #1a2b50;
+  }
+  
+  /* 🔥 Branding */
+  .brand {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+  }
+  
+  .brand-text {
+    font-size: 32px; /* Bigger & Bolder */
+    font-weight: 900; /* Extra Bold */
+    color: #007bff; /* Deep Blue */
+    text-shadow: 0px 0px 12px rgba(0, 123, 255, 0.8); /* Subtle Glow */
+    letter-spacing: 1px; /* Slight Spacing for Impact */
+    text-transform: uppercase; /* Uppercase for Boldness */
+}
+
+
+  
+  .brand-tagline {
+    font-size: 14px;
+    color: #a8dadc;
+  }
+  
+  /* 🌐 Navbar Links */
+  .nav-links a {
+    background: #112d4e; /* Dark Cyan Blue */
+    color: #00e6e6; /* Neon Cyan */
+    text-shadow: 0px 0px 10px rgba(0, 255, 255, 0.8); /* Strong Cyan Glow */
+    box-shadow: 4px 4px 8px #081828, -4px -4px 8px #0e2a3d;
+    transition: all 0.3s ease-in-out;
+    border-radius: 12px;
+    padding: 10px 20px;
+  }
+  
+  .nav-links li {
+    position: relative;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #a8dadc;
+    padding: 12px 20px;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #0d2438, #0a1e36);
+    box-shadow: 4px 4px 8px #050c1a, -4px -4px 8px #142850;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* ✨ Hover Effect */
+  .nav-links a:hover {
+    background: #0e2a3d; /* Slightly lighter on hover */
+    box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.8); /* Brighter glow effect */
+    transform: scale(1.05);
+  }
+  
+  /* 🔽 Dropdown */
+  .dropdown-content {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #0a1e36;
+    border-radius: 10px;
+    box-shadow: 6px 6px 12px #050c1a, -6px -6px 12px #142850;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    display: none;
+    flex-direction: column;
+    width: 220px;
+    padding: 12px;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: flex;
+  }
+  
+  .dropdown-content a {
+    padding: 10px;
+    color: #a8dadc;
+    transition: 0.3s;
+  }
+  
+  .dropdown-content a:hover {
+    background: #102a44;
+    color: cyan;
+    text-shadow: 0px 0px 15px cyan;
+    border-radius: 5px;
+  }
+  
+  /* 🔽 Arrow Icon */
+  .arrow-down {
+    border: solid cyan;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    margin-left: 5px;
+  }
+  
