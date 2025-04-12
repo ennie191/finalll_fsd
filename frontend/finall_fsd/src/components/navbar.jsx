@@ -1,99 +1,117 @@
 import React, { useState } from "react";
 import logo from "../assets/img.jpg";
-import "../styles/navbar.css"; // Ensure to create/update this CSS file
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [showSDGDropdown, setShowSDGDropdown] = useState(false);
   const [showMediaDropdown, setShowMediaDropdown] = useState(false);
 
-  const sdgs = [
-    { id: 1, name: "No Poverty" },
-    { id: 2, name: "Zero Hunger" },
-    { id: 3, name: "Good Health and Well-being" },
-    { id: 4, name: "Quality Education" },
-    { id: 5, name: "Gender Equality" },
-    { id: 6, name: "Clean Water and Sanitation" },
-    { id: 7, name: "Affordable and Clean Energy" },
-    { id: 8, name: "Decent Work and Economic Growth" },
-    { id: 9, name: "Industry, Innovation, and Infrastructure" },
-    { id: 10, name: "Reduced Inequalities" },
-    { id: 11, name: "Sustainable Cities and Communities" },
-    { id: 12, name: "Responsible Consumption and Production" },
-    { id: 13, name: "Climate Action" },
-    { id: 14, name: "Life Below Water" },
-    { id: 15, name: "Life on Land" },
-    { id: 16, name: "Peace, Justice and Strong Institutions" },
-    { id: 17, name: "Partnerships for the Goals" }
-  ];
-
   return (
-    <nav className="navbar">
-      <div className="navbar-left">
-        <img src={logo} alt="College Logo" className="college-logo" />
-        <div className="brand">
-          <span className="brand-text">TISD</span>
-          <span className="brand-tagline">
+      <nav className="bg-gradient-to-br from-gray-900 via-black to-gray-800 px-6 py-4 flex justify-between items-center shadow-lg">
+      {/* Logo Section */}
+      <div className="flex items-center">
+        <img src={logo} alt="College Logo" className="h-12 w-auto mr-4" />
+        <div className="flex flex-col">
+          <span className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+            TISD
+          </span>
+          <span className="text-base text-gray-300 font-medium tracking-wide">
             Technology Innovation for Sustainable Development
           </span>
         </div>
       </div>
 
-      <div className="navbar-right">
-        <ul className="nav-links">
-          <li>
-            <a href="/">Home</a>
-          </li>
 
-          <li className="dropdown">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowSDGDropdown(!showSDGDropdown);
-                if (showMediaDropdown) setShowMediaDropdown(false);
-              }}
+
+
+      {/* Navbar Links */}
+      <div>
+       <ul className="flex space-x-6 items-center">
+          {/* Home Button */}
+          <li>
+            <Link
+              to="/"
+              className="px-6 py-2 rounded-md text-white font-medium bg-gradient-to-br from-gray-800 to-gray-700 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-500/50 hover:shadow-lg transition-all transform hover:scale-105"
             >
-              Projects <i className="arrow-down"></i>
-            </a>
-            {showSDGDropdown && (
-              <div className="dropdown-content sdg-dropdown">
-                {sdgs.map((sdg) => (
-                  <a key={sdg.id} href={`/projects/sdg-${sdg.id}`}>
-                    <span className="sdg-number">{sdg.id}</span> {sdg.name}
-                  </a>
-                ))}
-              </div>
-            )}
+              Home
+            </Link>
           </li>
 
+          {/* Mentors Button */}
           <li>
-            <a href="/mentors">Mentors</a>
-          </li>
-          <li>
-            <a href="/collaborators">Collaborators</a>
-          </li>
-
-          <li className="dropdown">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setShowMediaDropdown(!showMediaDropdown);
-                if (showSDGDropdown) setShowSDGDropdown(false);
-              }}
+            <Link
+              to="/mentors"
+              className="px-6 py-2 rounded-md text-white font-medium bg-gradient-to-br from-gray-800 to-gray-700 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-500/50 hover:shadow-lg transition-all transform hover:scale-105"
             >
-              Media <i className="arrow-down"></i>
-            </a>
+              Mentors
+            </Link>
+          </li>
+
+          {/* Collaborators Button */}
+          <li>
+            <Link
+              to="/collaborators"
+              className="px-6 py-2 rounded-md text-white font-medium bg-gradient-to-br from-gray-800 to-gray-700 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-500/50 hover:shadow-lg transition-all transform hover:scale-105"
+            >
+              Collaborators
+            </Link>
+          </li>
+
+          {/* Media Dropdown */}
+          <li className="relative">
+            <button
+              onClick={() => setShowMediaDropdown(!showMediaDropdown)}
+              className="px-6 py-2 rounded-md text-white font-medium bg-gradient-to-br from-gray-800 to-gray-700 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-500/50 hover:shadow-lg transition-all transform hover:scale-105 flex items-center"
+            >
+              Media
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
             {showMediaDropdown && (
-              <div className="dropdown-content">
-                <a href="/media/videos">Videos</a>
-                <a href="/media/gallery">Gallery</a>
+              <div className="absolute right-0 mt-2 w-40 bg-gradient-to-br from-gray-900 to-gray-800 rounded-md shadow-lg z-10">
+                <Link
+                  to="/media/videos"
+                  className="block px-4 py-2 text-sm text-white hover:bg-blue-600 hover:text-white transition-all"
+                >
+                  Videos
+                </Link>
+                <Link
+  to="/#gallery"
+  onClick={(e) => {
+    e.preventDefault();
+    const gallerySection = document.getElementById('gallery');
+    if (gallerySection) {
+      gallerySection.scrollIntoView({ behavior: 'smooth' });
+      setShowMediaDropdown(false); // Close dropdown after clicking
+    }
+  }}
+  className="block px-4 py-2 text-sm text-white hover:bg-blue-600 hover:text-white transition-all"
+>
+  Gallery
+</Link>
               </div>
             )}
           </li>
 
+          {/* Contact Button */}
           <li>
-            <a href="/contact">Contact</a>
+            <Link
+              to="/contact"
+              className="px-6 py-2 rounded-md text-white font-medium bg-gradient-to-br from-gray-800 to-gray-700 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-500/50 hover:shadow-lg transition-all transform hover:scale-105"
+            >
+              Contact
+            </Link>
           </li>
         </ul>
       </div>

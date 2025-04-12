@@ -7,117 +7,27 @@ import {
   FaEnvelope,
   FaPhone,
   FaMapMarkerAlt,
-  FaProjectDiagram,
   FaGlobe
 } from "react-icons/fa";
 
 const Footer = () => {
-  const footerStyle = {
-    backgroundColor: "#0a1e36",
-    color: "white",
-    padding: "60px 20px 30px",
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    boxShadow: "0px -5px 15px rgba(0, 0, 0, 0.4)",
-  };
-
-  const containerStyle = {
-    display: "flex",
-    justifyContent: "space-around",
-    flexWrap: "wrap",
-    maxWidth: "1200px",
-    margin: "0 auto",
-    width: "100%",
-    gap: "40px"
-  };
-
-  const columnStyle = {
-    flex: "1",
-    minWidth: "250px",
-    padding: "0 15px"
-  };
-
-  const headingStyle = {
-    fontSize: "20px",
-    fontWeight: "bold",
-    color: "cyan",
-    marginBottom: "20px",
-    borderBottom: "2px solid rgba(0, 255, 255, 0.3)",
-    paddingBottom: "10px"
-  };
-
-  const textStyle = {
-    color: "#B0BEC5",
-    margin: "12px 0",
-    display: "flex",
-    alignItems: "center",
-    gap: "12px"
-  };
-
-  const linkStyle = {
-    ...textStyle,
-    cursor: "pointer",
-    transition: "all 0.3s ease",
-    textDecoration: "none",
-    color: "#B0BEC5",
-    ':hover': {
-      color: "cyan"
-    }
-  };
-
-  const iconContainerStyle = {
-    display: "flex",
-    gap: "20px",
-    margin: "25px 0"
-  };
-
-  const iconStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "40px",
-    height: "40px",
-    borderRadius: "10px",
-    backgroundColor: "#0C1E22",
-    boxShadow: "4px 4px 8px #071015, -4px -4px 8px #0D2025",
-    color: "cyan",
-    transition: "all 0.3s ease",
-  };
-
-  const bottomStyle = {
-    marginTop: "40px",
-    textAlign: "center",
-    color: "#90A4AE",
-    fontSize: "14px",
-    borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-    paddingTop: "20px",
-    width: "100%"
-  };
-
   return (
-    <footer style={footerStyle}>
-      <div style={containerStyle}>
-        {/* About Column - Expanded */}
-        <div style={{ ...columnStyle, minWidth: "300px" }}>
-          <h3 style={headingStyle}>About TISD Platform</h3>
-          <p style={textStyle}>
+    <footer className="bg-gradient-to-br from-gray-900 via-black to-gray-800 text-gray-300 py-16 px-5 flex flex-col w-full shadow-[0_-5px_15px_rgba(0,0,0,0.4)]">
+      <div className="flex justify-around flex-wrap max-w-6xl mx-auto w-full gap-10">
+        {/* About Column */}
+        <div className="flex-1 min-w-[300px] px-4">
+          <h3 className="text-xl font-bold mb-5 border-b border-gray-700 pb-2 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500">
+            About TISD Platform
+          </h3>
+          <p className="text-gray-400 my-3 flex items-center gap-3">
             <FaGlobe /> Tracking Innovation & Sustainable Development initiative connecting academic projects with UN SDGs and global collaborators.
           </p>
-          <div style={iconContainerStyle}>
+          <div className="flex gap-5 my-6">
             {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map((Icon, index) => (
               <a 
                 key={index} 
                 href="#" 
-                style={iconStyle}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0px 0px 15px cyan";
-                  e.currentTarget.style.transform = "scale(1.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = "4px 4px 8px #071015, -4px -4px 8px #0D2025";
-                  e.currentTarget.style.transform = "scale(1)";
-                }}
+                className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-800 shadow-md text-blue-400 transition-all duration-300 hover:shadow-lg hover:text-blue-300 hover:scale-110"
               >
                 <Icon size={18} />
               </a>
@@ -125,46 +35,34 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* SDG Links Column - Expanded */}
-        <div style={{ ...columnStyle, minWidth: "300px" }}>
-          
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", 
-            gap: "12px" 
-          }}>
-            
-           
+        {/* SDG Links Column */}
+        <div className="flex-1 min-w-[300px] px-4">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(100px,1fr))] gap-3">
+            {/* Add SDG links or content here */}
           </div>
         </div>
 
-        {/* Contact Column - Expanded */}
-        <div style={{ ...columnStyle, minWidth: "250px" }}>
-          <h3 style={headingStyle}>Get In Touch</h3>
-          <a href="mailto:contact@tisd.org" style={linkStyle}>
+        {/* Contact Column */}
+        <div className="flex-1 min-w-[250px] px-4">
+          <h3 className="text-xl font-bold mb-5 border-b border-gray-700 pb-2 bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500">
+            Get In Touch
+          </h3>
+          <a href="mailto:contact@tisd.org" className="text-gray-400 my-3 flex items-center gap-3 cursor-pointer transition-all duration-300 no-underline hover:text-blue-300">
             <FaEnvelope /> contact@tisd.org
           </a>
-          <a href="tel:+919876543210" style={linkStyle}>
+          <a href="tel:+919876543210" className="text-gray-400 my-3 flex items-center gap-3 cursor-pointer transition-all duration-300 no-underline hover:text-blue-300">
             <FaPhone /> +91 98765 43210
           </a>
-          <p style={textStyle}>
+          <p className="text-gray-400 my-3 flex items-center gap-3">
             <FaMapMarkerAlt /> Mumbai, India
           </p>
-          <a href="/submit-project" style={{
-            ...linkStyle,
-            marginTop: "20px",
-            color: "cyan",
-            fontWeight: "bold"
-          }}>
-            <FaProjectDiagram /> Submit Your Project
-          </a>
         </div>
       </div>
 
-      <div style={bottomStyle}>
+      <div className="mt-10 text-center text-gray-500 text-sm border-t border-gray-700 pt-5 w-full">
         &copy; {new Date().getFullYear()} TISD Platform. All Rights Reserved. | 
-        <a href="/privacy" style={{ ...linkStyle, margin: "0 10px", display: "inline" }}>Privacy Policy</a> | 
-        <a href="/terms" style={{ ...linkStyle, display: "inline" }}>Terms of Service</a>
+        <a href="/privacy" className="mx-2 text-gray-400 inline hover:text-blue-300 transition-all duration-300">Privacy Policy</a> | 
+        <a href="/terms" className="text-gray-400 inline hover:text-blue-300 transition-all duration-300">Terms of Service</a>
       </div>
     </footer>
   );

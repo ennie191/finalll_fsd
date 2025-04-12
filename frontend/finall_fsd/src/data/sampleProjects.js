@@ -1,0 +1,886 @@
+// src/data/sampleProjects.js
+export const sampleProjects = [
+    // SDG 1 Projects (No Poverty)
+    {
+      id: 1,
+      title: "Microfinance App for Rural Areas",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2020",
+      sdgs: [1],
+      mentors: ["Dr. Smith"],
+      description: "Mobile banking solution for underserved communities",
+      status: "Completed"
+    },
+    {
+      id: 2,
+      title: "Affordable Housing Materials",
+      department: "Mechanical",
+      academicYear: "2023",
+      sdgs: [1],
+      mentors: ["Prof. Johnson"],
+      description: "Low-cost building materials research",
+      status: "Prototype Phase"
+    },
+    {
+      id: 3,
+      title: "Skill Development Platform",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [1],
+      mentors: ["Dr. Williams"],
+      description: "Digital platform for vocational training in low-income areas",
+      status: "Active"
+    },
+    {
+      id: 4,
+      title: "Financial Literacy Mobile Game",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2024",
+      sdgs: [1],
+      mentors: ["Prof. Garcia"],
+      description: "Educational game teaching financial management skills",
+      status: "Completed"
+    },
+    {
+      id: 5,
+      title: "Resource Optimization Algorithm",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2025",
+      sdgs: [1],
+      mentors: ["Dr. Patel"],
+      description: "ML-based resource allocation for poverty reduction programs",
+      status: "Active"
+    },
+    
+    // SDG 2 Projects (Zero Hunger)
+    {
+      id: 6,
+      title: "Smart Irrigation System",
+      department: "Electronics & Computer Science",
+      academicYear: "2020",
+      sdgs: [2],
+      mentors: ["Dr. Lee"],
+      description: "IoT-based water conservation for farms",
+      status: "Testing Phase"
+    },
+    {
+      id: 7,
+      title: "Crop Yield Prediction Model",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [2],
+      mentors: ["Prof. Wilson"],
+      description: "AI-driven agricultural output forecasting",
+      status: "Active"
+    },
+    {
+      id: 8,
+      title: "Food Waste Reduction App",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2024",
+      sdgs: [2],
+      mentors: ["Dr. Martinez"],
+      description: "Mobile application connecting excess food with food banks",
+      status: "Completed"
+    },
+    {
+      id: 9,
+      title: "Automated Vertical Farming",
+      department: "Mechanical",
+      academicYear: "2024",
+      sdgs: [2],
+      mentors: ["Prof. Anderson"],
+      description: "Robotic systems for indoor agriculture",
+      status: "Prototype Phase"
+    },
+    {
+      id: 10,
+      title: "Agricultural Drone Monitoring",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2025",
+      sdgs: [2],
+      mentors: ["Dr. Campbell"],
+      description: "AI-powered crop health analysis via drone imagery",
+      status: "Research Phase"
+    },
+    
+    // SDG 3 Projects (Good Health and Well-being)
+    {
+      id: 11,
+      title: "Remote Healthcare Monitoring",
+      department: "Electronics & Computer Science",
+      academicYear: "2021",
+      sdgs: [3],
+      mentors: ["Dr. Roberts"],
+      description: "Wearable technology for remote patient vitals monitoring",
+      status: "Testing Phase"
+    },
+    {
+      id: 12,
+      title: "Mental Health Support App",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [3],
+      mentors: ["Prof. Thompson"],
+      description: "Mobile platform providing mental health resources and support",
+      status: "Active"
+    },
+    {
+      id: 13,
+      title: "Medical Diagnosis Assistant",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2020",
+      sdgs: [3],
+      mentors: ["Dr. Walker"],
+      description: "AI tool for preliminary medical diagnosis in remote areas",
+      status: "Completed"
+    },
+    {
+      id: 14,
+      title: "Vaccine Distribution Optimization",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2025",
+      sdgs: [3],
+      mentors: ["Prof. Lewis"],
+      description: "Predictive analytics for vaccine delivery logistics",
+      status: "Active"
+    },
+    {
+      id: 15,
+      title: "Portable Medical Device",
+      department: "Mechanical",
+      academicYear: "2022",
+      sdgs: [3],
+      mentors: ["Dr. Chen"],
+      description: "Low-cost diagnostic equipment for field use",
+      status: "Testing Phase"
+    },
+    
+    // SDG 4 Projects (Quality Education)
+    {
+      id: 16,
+      title: "Accessible Learning Platform",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [4],
+      mentors: ["Dr. Edwards"],
+      description: "Digital education platform for students with disabilities",
+      status: "Active"
+    },
+    {
+      id: 17,
+      title: "Solar-Powered Educational Devices",
+      department: "Electronics & Computer Science",
+      academicYear: "2023",
+      sdgs: [4],
+      mentors: ["Prof. Turner"],
+      description: "Sustainable electricity for educational technology in off-grid areas",
+      status: "Completed"
+    },
+    {
+      id: 18,
+      title: "Adaptive Learning Algorithm",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [4],
+      mentors: ["Dr. Morgan"],
+      description: "AI system adjusting content to student learning pace",
+      status: "Prototype Phase"
+    },
+    {
+      id: 19,
+      title: "Low-Cost Educational Tablets",
+      department: "Electronics & Computer Science",
+      academicYear: "2023",
+      sdgs: [4],
+      mentors: ["Prof. Nguyen"],
+      description: "Affordable devices preloaded with educational content",
+      status: "Testing Phase"
+    },
+    {
+      id: 20,
+      title: "Education Outcome Prediction",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [4],
+      mentors: ["Dr. Hayes"],
+      description: "Analyzing factors affecting educational success rates",
+      status: "Active"
+    },
+    
+    // SDG 5 Projects (Gender Equality)
+    {
+      id: 21,
+      title: "Women in STEM Mentorship Platform",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2024",
+      sdgs: [5],
+      mentors: ["Dr. Rivera"],
+      description: "Connecting female students with industry mentors",
+      status: "Active"
+    },
+    {
+      id: 22,
+      title: "Gender Violence Reporting App",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [5],
+      mentors: ["Prof. Mitchell"],
+      description: "Anonymous platform for reporting and accessing support services",
+      status: "Testing Phase"
+    },
+    {
+      id: 23,
+      title: "Equal Pay Analytics Tool",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2020",
+      sdgs: [5],
+      mentors: ["Dr. Scott"],
+      description: "Software analyzing wage disparities within organizations",
+      status: "Completed"
+    },
+    {
+      id: 24,
+      title: "Gender Bias Detection in AI",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [5],
+      mentors: ["Prof. Phillips"],
+      description: "Tools identifying and mitigating gender bias in algorithms",
+      status: "Active"
+    },
+    {
+      id: 25,
+      title: "Safety Device for Women",
+      department: "Electronics & Computer Science",
+      academicYear: "2020",
+      sdgs: [5],
+      mentors: ["Dr. Rodriguez"],
+      description: "Wearable device with emergency alert capabilities",
+      status: "Research Phase"
+    },
+    
+    // SDG 6 Projects (Clean Water and Sanitation)
+    {
+      id: 26,
+      title: "Water Quality Monitoring Device",
+      department: "Electronics & Computer Science",
+      academicYear: "2020",
+      sdgs: [6],
+      mentors: ["Dr. Cooper"],
+      description: "Portable sensor for water contamination detection",
+      status: "Testing Phase"
+    },
+    {
+      id: 27,
+      title: "Water Pump Automation System",
+      department: "Mechanical",
+      academicYear: "2024",
+      sdgs: [6],
+      mentors: ["Prof. Ross"],
+      description: "Energy-efficient water distribution for rural communities",
+      status: "Prototype Phase"
+    },
+    {
+      id: 28,
+      title: "Smart Water Grid Management",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2025",
+      sdgs: [6],
+      mentors: ["Dr. Bailey"],
+      description: "IoT network optimizing water resource allocation",
+      status: "Active"
+    },
+    {
+      id: 29,
+      title: "Waterborne Disease Prediction",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2020",
+      sdgs: [6],
+      mentors: ["Prof. Reed"],
+      description: "Predictive modeling of disease outbreaks from water data",
+      status: "Completed"
+    },
+    {
+      id: 30,
+      title: "Water Purification System",
+      department: "Mechanical",
+      academicYear: "2025",
+      sdgs: [6],
+      mentors: ["Dr. Evans"],
+      description: "Low-cost device filtering contaminants from drinking water",
+      status: "Active"
+    },
+    
+    // SDG 7 Projects (Affordable and Clean Energy)
+    {
+      id: 31,
+      title: "Portable Solar Charging Station",
+      department: "Electronics & Computer Science",
+      academicYear: "2022",
+      sdgs: [7],
+      mentors: ["Dr. Richardson"],
+      description: "Mobile solar charger for community use",
+      status: "Testing Phase"
+    },
+    {
+      id: 32,
+      title: "Energy Consumption Optimization",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2023",
+      sdgs: [7],
+      mentors: ["Prof. Bennett"],
+      description: "Algorithm reducing electricity usage in buildings",
+      status: "Prototype Phase"
+    },
+    {
+      id: 33,
+      title: "Micro Wind Turbine Design",
+      department: "Mechanical",
+      academicYear: "2020",
+      sdgs: [7],
+      mentors: ["Dr. Watson"],
+      description: "Small-scale wind energy for residential use",
+      status: "Active"
+    },
+    {
+      id: 34,
+      title: "Community Energy Tracking App",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [7],
+      mentors: ["Prof. Brooks"],
+      description: "Mobile application tracking community energy usage",
+      status: "Completed"
+    },
+    {
+      id: 35,
+      title: "Renewable Energy Forecasting",
+      department: "Computer Science",
+      academicYear: "2024",
+      sdgs: [7],
+      mentors: ["Dr. Price"],
+      description: "AI system predicting optimal renewable energy harvesting",
+      status: "Research Phase"
+    },
+    
+    // SDG 8 Projects (Decent Work and Economic Growth)
+    {
+      id: 36,
+      title: "Gig Worker Protection Platform",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [8],
+      mentors: ["Dr. Howard"],
+      description: "Digital platform protecting rights of freelance workers",
+      status: "Active"
+    },
+    {
+      id: 37,
+      title: "Small Business Automation Tools",
+      department: "Electronics & Computer Science",
+      academicYear: "2025",
+      sdgs: [8],
+      mentors: ["Prof. Stewart"],
+      description: "Low-cost automation for small-scale manufacturing",
+      status: "Testing Phase"
+    },
+    {
+      id: 38,
+      title: "Ethical Supply Chain Tracker",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [8],
+      mentors: ["Dr. Morris"],
+      description: "Blockchain system verifying fair labor practices",
+      status: "Prototype Phase"
+    },
+    {
+      id: 39,
+      title: "Job Market Trend Analysis",
+      department: "Computer Science",
+      academicYear: "4",
+      sdgs: [8],
+      mentors: ["Prof. Sanders"],
+      description: "Analyzing emerging employment sectors and skills demands",
+      status: "Completed"
+    },
+    {
+      id: 40,
+      title: "Manufacturing Process Optimization",
+      department: "Mechanical",
+      academicYear: "2020",
+      sdgs: [8],
+      mentors: ["Dr. Young"],
+      description: "Improving efficiency in production workflows",
+      status: "Active"
+    },
+    
+    // SDG 9 Projects (Industry, Innovation and Infrastructure)
+    {
+      id: 41,
+      title: "Infrastructure Monitoring Sensors",
+      department: "Electronics & Computer Science",
+      academicYear: "2022",
+      sdgs: [9],
+      mentors: ["Dr. Allen"],
+      description: "Low-cost sensors for structural health monitoring",
+      status: "Testing Phase"
+    },
+    {
+      id: 42,
+      title: "Open-Source Manufacturing Tools",
+      department: "Mechanical",
+      academicYear: "2025",
+      sdgs: [9],
+      mentors: ["Prof. King"],
+      description: "Accessible machinery designs for small-scale production",
+      status: "Active"
+    },
+    {
+      id: 43,
+      title: "Rural Internet Infrastructure",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [9],
+      mentors: ["Dr. Wright"],
+      description: "Low-cost internet connectivity for remote areas",
+      status: "Prototype Phase"
+    },
+    {
+      id: 44,
+      title: "Industrial Process Simulation",
+      department: "Mechanical",
+      academicYear: "2022",
+      sdgs: [9],
+      mentors: ["Prof. Lopez"],
+      description: "Digital twin modeling for manufacturing optimization",
+      status: "Research Phase"
+    },
+    {
+      id: 45,
+      title: "Predictive Maintenance System",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2020",
+      sdgs: [9],
+      mentors: ["Dr. Clark"],
+      description: "AI-based system predicting equipment failures",
+      status: "Completed"
+    },
+    
+    // SDG 10 Projects (Reduced Inequalities)
+    {
+      id: 46,
+      title: "Accessibility App for Disabilities",
+      department: "Electronics & Computer Science",
+      academicYear: "2021",
+      sdgs: [10],
+      mentors: ["Dr. Hill"],
+      description: "Mobile platform enhancing accessibility for disabled persons",
+      status: "Active"
+    },
+    {
+      id: 47,
+      title: "Digital Identity for Refugees",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2023",
+      sdgs: [10],
+      mentors: ["Prof. Baker"],
+      description: "Blockchain-based identity verification for displaced persons",
+      status: "Testing Phase"
+    },
+    {
+      id: 48,
+      title: "Telemedicine Platform",
+      department: "Electronics & Computer Science",
+      academicYear: "2023",
+      sdgs: [10],
+      mentors: ["Dr. Gonzalez"],
+      description: "Remote healthcare system for underserved communities",
+      status: "Completed"
+    },
+    {
+      id: 49,
+      title: "Inequality Pattern Detection",
+      department: "Computer Science",
+      academicYear: "2023",
+      sdgs: [10],
+      mentors: ["Prof. Nelson"],
+      description: "Analyzing data patterns revealing structural inequalities",
+      status: "Prototype Phase"
+    },
+    {
+      id: 50,
+      title: "Assistive Technology Device",
+      department: "Mechanical",
+      academicYear: "2022",
+      sdgs: [10],
+      mentors: ["Dr. Carter"],
+      description: "Low-cost mobility aids for individuals with disabilities",
+      status: "Research Phase"
+    },
+    
+    // SDG 11 Projects (Sustainable Cities and Communities)
+    {
+      id: 51,
+      title: "Smart Energy Grid Management",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2020",
+      sdgs: [11],
+      mentors: ["Dr. Murphy"],
+      description: "System optimizing urban energy distribution",
+      status: "Active"
+    },
+    {
+      id: 52,
+      title: "Smart Traffic Management",
+      department: "Electronics & Computer Science",
+      academicYear: "2025",
+      sdgs: [11],
+      mentors: ["Prof. Rogers"],
+      description: "Sensor network reducing congestion and pollution",
+      status: "Testing Phase"
+    },
+    {
+      id: 53,
+      title: "Urban Heat Mapping Drones",
+      department: "Mechanical",
+      academicYear: "2021",
+      sdgs: [11],
+      mentors: ["Dr. Cook"],
+      description: "Thermal imaging system for urban heat island analysis",
+      status: "Prototype Phase"
+    },
+    {
+      id: 54,
+      title: "Disaster Response Coordination App",
+      department: "Mecahnical",
+      academicYear: "2020",
+      sdgs: [11],
+      mentors: ["Prof. Morgan"],
+      description: "Platform connecting volunteers and resources during crises",
+      status: "Completed"
+    },
+    {
+      id: 55,
+      title: "Urban Planning Optimization",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2024",
+      sdgs: [11],
+      mentors: ["Dr. Bell"],
+      description: "Data-driven modeling for sustainable urban development",
+      status: "Active"
+    },
+    
+    // SDG 12 Projects (Responsible Consumption and Production)
+    {
+      id: 56,
+      title: "Supply Chain Transparency Platform",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [12],
+      mentors: ["Dr. Russell"],
+      description: "Blockchain-based product origin verification",
+      status: "Testing Phase"
+    },
+    {
+      id: 57,
+      title: "Waste Management Robotics",
+      department: "Mechanical",
+      academicYear: "2020",
+      sdgs: [12],
+      mentors: ["Prof. Cox"],
+      description: "Automated sorting system for recyclable materials",
+      status: "Active"
+    },
+    {
+      id: 58,
+      title: "Sustainable Consumer App",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [12],
+      mentors: ["Dr. Ward"],
+      description: "App tracking environmental impact of consumer choices",
+      status: "Prototype Phase"
+    },
+    {
+      id: 59,
+      title: "Predictive Recycling Analysis",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2023",
+      sdgs: [12],
+      mentors: ["Prof. Peterson"],
+      description: "Algorithm optimizing municipal recycling programs",
+      status: "Research Phase"
+    },
+    {
+      id: 60,
+      title: "Smart Packaging System",
+      department: "Electronics & Computer Science",
+      academicYear: "2021",
+      sdgs: [12],
+      mentors: ["Dr. Gray"],
+      description: "Sensors monitoring food freshness to reduce waste",
+      status: "Completed"
+    },
+    
+    // SDG 13 Projects (Climate Action)
+    {
+      id: 61,
+      title: "Carbon Footprint Calculator",
+      department: "Computer Science",
+      academicYear: "2021",
+      sdgs: [13],
+      mentors: ["Dr. James"],
+      description: "Personal carbon tracking and reduction recommendations",
+      status: "Active"
+    },
+    {
+      id: 62,
+      title: "Climate Change Monitoring Network",
+      department: "Electronics & Computer Science",
+      academicYear: "2024",
+      sdgs: [13],
+      mentors: ["Prof. Adams"],
+      description: "Distributed sensors tracking environmental changes",
+      status: "Testing Phase"
+    },
+    {
+      id: 63,
+      title: "Climate Simulation Models",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2024",
+      sdgs: [13],
+      mentors: ["Dr. Foster"],
+      description: "Regional climate impact prediction system",
+      status: "Completed"
+    },
+    {
+      id: 64,
+      title: "Carbon Capture Device",
+      department: "Mechanical",
+      academicYear: "2024",
+      sdgs: [13],
+      mentors: ["Prof. Barnes"],
+      description: "Small-scale atmospheric carbon dioxide extraction system",
+      status: "Prototype Phase"
+    },
+    {
+      id: 65,
+      title: "Climate Action Recommendation Engine",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2025",
+      sdgs: [13],
+      mentors: ["Dr. Coleman"],
+      description: "AI system providing personalized climate action strategies",
+      status: "Research Phase"
+    },
+    
+    // SDG 14 Projects (Life Below Water)
+    {
+      id: 66,
+      title: "Ocean Cleanup Drone",
+      department: "Mechanical",
+      academicYear: "2021",
+      sdgs: [14],
+      mentors: ["Dr. Alexander"],
+      description: "Autonomous vehicle collecting marine waste",
+      status: "Testing Phase"
+    },
+    {
+      id: 67,
+      title: "Coral Reef Monitoring System",
+      department: "Electronics & Computer Science",
+      academicYear: "2020",
+      sdgs: [14],
+      mentors: ["Prof. Griffin"],
+      description: "Underwater sensor network tracking reef health",
+      status: "Active"
+    },
+    {
+      id: 68,
+      title: "Sustainable Fishing App",
+      department: "Electronics & Computer Science",
+      academicYear: "2023",
+      sdgs: [14],
+      mentors: ["Dr. Kennedy"],
+      description: "Platform helping fishermen reduce bycatch",
+      status: "Prototype Phase"
+    },
+    {
+      id: 69,
+      title: "Marine Data Analysis Platform",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2020",
+      sdgs: [14],
+      mentors: ["Prof. Ryan"],
+      description: "Big data analysis of ocean health indicators",
+      status: "Completed"
+    },
+    {
+      id: 70,
+      title: "Fish Species Identification AI",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2021",
+      sdgs: [14],
+      mentors: ["Dr. Sullivan"],
+      description: "Image recognition system identifying aquatic species",
+      status: "Research Phase"
+    },
+    
+    // SDG 15 Projects (Life on Land)
+    {
+      id: 71,
+      title: "Wildlife Tracking System",
+      department: "Electronics & Computer Science",
+      academicYear: "2022",
+      sdgs: [15],
+      mentors: ["Dr. Harrison"],
+      description: "Low-cost animal tracking for conservation efforts",
+      status: "Testing Phase"
+    },
+    {
+      id: 72,
+      title: "Reforestation Drone System",
+      department: "Mechanical",
+      academicYear: "2025",
+      sdgs: [15],
+      mentors: ["Prof. Marshall"],
+      description: "Automated drone seed planting for reforestation",
+      status: "Active"
+    },
+    {
+      id: 73,
+      title: "Species Identification App",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2025",
+      sdgs: [15],
+      mentors: ["Dr. Owen"],
+      description: "Mobile app identifying and reporting plant species",
+      status: "Completed"
+    },
+    {
+      id: 74,
+      title: "Deforestation Detection System",
+      department: "Computer Science",
+      academicYear: "2022",
+      sdgs: [15],
+      mentors: ["Prof. Perry"],
+      description: "Satellite image analysis detecting illegal logging",
+      status: "Prototype Phase"
+    },
+    {
+      id: 75,
+      title: "Wildlife Conservation AI",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2024",
+      sdgs: [15],
+      mentors: ["Dr. Simmons"],
+      description: "Deep learning system for wildlife population monitoring",
+      status: "Research Phase"
+    },
+    
+    // SDG 16 Projects (Peace, Justice and Strong Institutions)
+    {
+      id: 76,
+      title: "Legal Aid Chatbot",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2023",
+      sdgs: [16],
+      mentors: ["Dr. Wallace"],
+      description: "AI assistant providing basic legal guidance",
+      status: "Active"
+    },
+    {
+      id: 77,
+      title: "Election Monitoring System",
+      department: "Electronics & Computer Science",
+      academicYear: "2023",
+      sdgs: [16],
+      mentors: ["Prof. Bradley"],
+      description: "Hardware and software ensuring election integrity",
+      status: "Testing Phase"
+    },
+    {
+      id: 78,
+      title: "Document Verification System",
+      department: "Computer Science",
+      academicYear: "2020",
+      sdgs: [16],
+      mentors: ["Dr. Malone"],
+      description: "Blockchain solution for authenticating official documents",
+      status: "Completed"
+    },
+    {
+      id: 79,
+      title: "Anti-Corruption Reporting Tool",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2020",
+      sdgs: [16],
+      mentors: ["Prof. Ramsey"],
+      description: "Secure platform for whistleblowing",
+      status: "Prototype Phase"
+    },
+    {
+      id: 80,
+      title: "Civic Participation Analytics",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [16],
+      mentors: ["Dr. Summers"],
+      description: "Analyzing patterns in community engagement with institutions",
+      status: "Research Phase"
+    },
+    
+    // SDG 17 Projects (Partnerships for the Goals)
+    {
+      id: 81,
+      title: "Cross-Border Research Platform",
+      department: "Computer Science",
+      academicYear: "2020",
+      sdgs: [17],
+      mentors: ["Dr. Warren"],
+      description: "System facilitating international academic collaboration",
+      status: "Active"
+    },
+    {
+      id: 82,
+      title: "SDG Progress Tracking Dashboard",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [17],
+      mentors: ["Prof. Boyd"],
+      description: "Visual platform monitoring SDG implementation",
+      status: "Testing Phase"
+    },
+    {
+      id: 83,
+      title: "Resource Sharing Marketplace",
+      department: "Artificial Intelligence & Data Science",
+      academicYear: "2022",
+      sdgs: [17],
+      mentors: ["Dr. Fisher"],
+      description: "Platform connecting organizations with complementary resources",
+      status: "Prototype Phase"
+    },
+    {
+      id: 84,
+      title: "International Collaboration Tools",
+      department: "Computer Science",
+      academicYear: "2024",
+      sdgs: [17],
+      mentors: ["Prof. Ramos"],
+      description: "AI-powered translation and cultural adaptation platform",
+      status: "Completed"
+    },
+    {
+      id: 85,
+      title: "Impact Measurement System",
+      department: "Electronics & Computer Science",
+      academicYear: "2025",
+      sdgs: [17],
+      mentors: ["Dr. Hamilton"],
+      description: "Sensor network quantifying SDG intervention outcomes",
+      status: "Research Phase"
+    }
+  ];
