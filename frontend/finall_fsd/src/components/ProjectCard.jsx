@@ -2,12 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { sdgColors } from '../data/sdgData';
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, isAchievement }) => {
   const statusColors = {
     'Prototype Phase': 'bg-blue-500/10 text-blue-400',
     'Testing Phase': 'bg-purple-500/10 text-purple-400',
     'Research Phase': 'bg-amber-500/10 text-amber-400',
-    'Completed': 'bg-green-500/10 text-green-400'
+    'Completed': 'bg-green-500/10 text-green-400',
+    'Active': 'bg-emerald-500/10 text-emerald-400'
   };
 
   return (
@@ -22,7 +23,7 @@ const ProjectCard = ({ project }) => {
             to={`/projects/${project.id}`}
             className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center"
           >
-            View <span className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+             <span className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity"></span>
           </Link>
         </div>
         
@@ -51,14 +52,42 @@ const ProjectCard = ({ project }) => {
             </span>
           ))}
         </div>
+
+        {/* Partners */}
+        {project.partners && (
+          <div className="mb-4">
+            <p className="text-xs text-gray-500 mb-1">PARTNERS</p>
+            <p className="text-sm text-gray-300">{project.partners.join(', ')}</p>
+          </div>
+        )}
+
+        {/* Achievement */}
+        {project.achievement && (
+          <div className="mb-4">
+            <p className="text-xs text-gray-500 mb-1">ACHIEVEMENT</p>
+            <p className="text-sm font-medium text-blue-400">{project.achievement}</p>
+          </div>
+        )}
       </div>
       
-      {/* Mentors - Fixed at bottom */}
+      {/* Mentors */}
       <div className="border-t border-gray-700 p-4 bg-gray-900/50">
-        <p className="text-xs text-gray-500 mb-1">MENTORED BY</p>
-        <p className="text-sm font-medium text-gray-300">
-          {project.mentors?.join(', ') || 'Not specified'}
-        </p>
+        <div className="mb-3">
+          <p className="text-xs text-gray-500 mb-1">MENTORED BY</p>
+          <p className="text-sm font-medium text-gray-300">
+            {project.mentors?.join(', ') || 'Not specified'}
+          </p>
+        </div>
+
+        {/* Join Button (conditionally rendered) */}
+        {!isAchievement && (
+          <Link
+            to={`/join-project/${project.id}`}
+            className="block w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-center rounded-md font-medium text-sm transition-colors"
+          >
+            Join Project
+          </Link>
+        )}
       </div>
     </div>
   );

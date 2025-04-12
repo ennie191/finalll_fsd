@@ -1,12 +1,25 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/img.jpg";
-import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [showMediaDropdown, setShowMediaDropdown] = useState(false);
+  const navigate = useNavigate();
+
+  const handleGalleryClick = (e) => {
+    e.preventDefault();
+    navigate('/'); // Navigate to the Home page
+    setTimeout(() => {
+      const gallerySection = document.getElementById('gallery');
+      if (gallerySection) {
+        gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' }); // Align to the top
+      }
+    }, 100); // Delay to ensure the Home page is loaded
+    setShowMediaDropdown(false); // Close dropdown
+  };
 
   return (
-      <nav className="bg-gradient-to-br from-gray-900 via-black to-gray-800 px-6 py-4 flex justify-between items-center shadow-lg">
+    <nav className="bg-gradient-to-br from-gray-900 via-black to-gray-800 px-6 py-4 flex justify-between items-center shadow-lg">
       {/* Logo Section */}
       <div className="flex items-center">
         <img src={logo} alt="College Logo" className="h-12 w-auto mr-4" />
@@ -15,17 +28,14 @@ const Navbar = () => {
             TISD
           </span>
           <span className="text-base text-gray-300 font-medium tracking-wide">
-            Technology Innovation for Sustainable Development
+            Tracking Innovation for Sustainable Development
           </span>
         </div>
       </div>
 
-
-
-
       {/* Navbar Links */}
       <div>
-       <ul className="flex space-x-6 items-center">
+        <ul className="flex space-x-6 items-center">
           {/* Home Button */}
           <li>
             <Link
@@ -83,35 +93,34 @@ const Navbar = () => {
                 <Link
                   to="/media/videos"
                   className="block px-4 py-2 text-sm text-white hover:bg-blue-600 hover:text-white transition-all"
+                  onClick={() => setShowMediaDropdown(false)} // Close dropdown after clicking
                 >
                   Videos
                 </Link>
-                <Link
-  to="/#gallery"
-  onClick={(e) => {
-    e.preventDefault();
-    const gallerySection = document.getElementById('gallery');
-    if (gallerySection) {
-      gallerySection.scrollIntoView({ behavior: 'smooth' });
-      setShowMediaDropdown(false); // Close dropdown after clicking
-    }
-  }}
-  className="block px-4 py-2 text-sm text-white hover:bg-blue-600 hover:text-white transition-all"
->
-  Gallery
-</Link>
+                <button
+                  onClick={handleGalleryClick}
+                  className="block px-4 py-2 text-sm text-white hover:bg-blue-600 hover:text-white transition-all"
+                >
+                  Gallery
+                </button>
               </div>
             )}
           </li>
 
           {/* Contact Button */}
           <li>
-            <Link
-              to="/contact"
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                const footerSection = document.getElementById('footer');
+                if (footerSection) {
+                  footerSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="px-6 py-2 rounded-md text-white font-medium bg-gradient-to-br from-gray-800 to-gray-700 hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-700 hover:shadow-blue-500/50 hover:shadow-lg transition-all transform hover:scale-105"
             >
               Contact
-            </Link>
+            </button>
           </li>
         </ul>
       </div>

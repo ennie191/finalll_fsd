@@ -12,7 +12,10 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-black to-gray-800 text-gray-300 py-16 px-5 flex flex-col w-full shadow-[0_-5px_15px_rgba(0,0,0,0.4)]">
+    <footer
+      id="footer"
+      className="bg-gradient-to-br from-gray-900 via-black to-gray-800 text-gray-300 py-16 px-5 flex flex-col w-full shadow-[0_-5px_15px_rgba(0,0,0,0.4)]"
+    >
       <div className="flex justify-around flex-wrap max-w-6xl mx-auto w-full gap-10">
         {/* About Column */}
         <div className="flex-1 min-w-[300px] px-4">

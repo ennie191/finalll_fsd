@@ -46,32 +46,32 @@ const SDGProjects = ({ projects }) => {
         <h1 className="text-3xl font-bold mb-2">Projects for SDG {sdgNumber}</h1>
         
         {/* Filters */}
-        <div className="bg-gray-50 p-4 rounded-lg mb-8">
+        <div className="bg-gray-900 p-4 rounded-lg mb-8 shadow-md">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Department</label>
+              <label className="block text-sm font-medium mb-1 text-gray-300">Department</label>
               <select
                 value={departmentFilter}
                 onChange={(e) => setDepartmentFilter(e.target.value)}
-                className="w-full p-2 border rounded-md"
+                className="w-full p-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
-                <option value="">All Departments</option>
+                <option value="" className="text-gray-400">All Departments</option>
                 {departments.map(dept => (
-                  <option key={dept} value={dept}>{dept}</option>
+                  <option key={dept} value={dept} className="text-gray-300">{dept}</option>
                 ))}
               </select>
             </div>
             
             <div>
-              <label className="block text-sm font-medium mb-1">Academic Year</label>
+              <label className="block text-sm font-medium mb-1 text-gray-300">Academic Year</label>
               <select
                 value={yearFilter}
                 onChange={(e) => setYearFilter(e.target.value)}
-                className="w-full p-2 border rounded-md"
+                className="w-full p-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
-                <option value="">All Years</option>
+                <option value="" className="text-gray-400">All Years</option>
                 {years.map(year => (
-                  <option key={year} value={year}>{year}</option>
+                  <option key={year} value={year} className="text-gray-300">{year}</option>
                 ))}
               </select>
             </div>
