@@ -13,6 +13,12 @@ import { sampleProjects } from './data/sampleProjects';
 // import './styles/global.css';
 import AuthPage from './components/Auth';
 
+// Import new components
+import StudentDashboard from './components/StudentDashboard';
+import MentorDashboard from './components/MentorDashboard';
+import CollaboratorDashboard from './components/CollaboratorDashboard';
+import AdminDashboard from './components/AdminDashboard';
+
 function App() {
   return (
     <Router>
@@ -30,6 +36,13 @@ function App() {
             <Route path="/" element={<Home projects={sampleProjects} />} />
             <Route path="/sdg/:sdgNumber" element={<SDGProjects projects={sampleProjects} />} />
             <Route path="/media/videos" element={<VideoGallery />} />
+
+            {/* New Routes */}
+            <Route path="/student/dashboard" element={<StudentDashboard />} />
+            <Route path="/mentor/dashboard" element={<MentorDashboard />} />
+            <Route path="/collaborator/dashboard" element={<CollaboratorDashboard />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+
             {/* <Route path="/media/videos" element={<Videos />} /> */}
             {/* <Route path="/media/gallery" element={<Gallery />} /> */}
             {/* <Route path="/contact" element={<Contact />} /> */}
