@@ -122,6 +122,16 @@ const Navbar = () => {
               Contact
             </button>
           </li>
+
+          {/* Sign Up Button */}
+          <li>
+            <Link
+              to="/auth" // Route for the Sign Up page
+              className="px-6 py-2 rounded-md text-white font-medium bg-gradient-to-br from-gray-800 to-gray-700 hover:bg-gradient-to-br hover:from-green-500 hover:to-green-700 hover:shadow-green-500/50 hover:shadow-lg transition-all transform hover:scale-105"
+            >
+             Login
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

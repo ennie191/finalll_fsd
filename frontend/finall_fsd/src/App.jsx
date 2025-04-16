@@ -22,34 +22,52 @@ import AdminDashboard from './components/AdminDashboard';
 function App() {
   return (
     <Router>
-      {/* Make this a flex container */}
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        
-        {/* Main content should take remaining space */}
         <div className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/collaborators" element={<Collaborators />} />
             <Route path="/mentors" element={<Mentors />} />
-            <Route path="/" element={<Home projects={sampleProjects} />} />
             <Route path="/sdg/:sdgNumber" element={<SDGProjects projects={sampleProjects} />} />
             <Route path="/media/videos" element={<VideoGallery />} />
 
-            {/* New Routes */}
-            <Route path="/student/dashboard" element={<StudentDashboard />} />
-            <Route path="/mentor/dashboard" element={<MentorDashboard />} />
-            <Route path="/collaborator/dashboard" element={<CollaboratorDashboard />} />
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-
-            {/* <Route path="/media/videos" element={<Videos />} /> */}
-            {/* <Route path="/media/gallery" element={<Gallery />} /> */}
-            {/* <Route path="/contact" element={<Contact />} /> */}
+            {/* Protected Routes */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/mentor/dashboard"
+              element={
+                <ProtectedRoute allowedRoles={['mentor']}>
+                  <MentorDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/student/dashboard"
+              element={
+                <ProtectedRoute allowedRoles={['student']}>
+                  <StudentDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/collaborator/dashboard"
+              element={
+                <ProtectedRoute allowedRoles={['collaborator']}>
+                  <CollaboratorDashboard />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </div>
-
-        {/* Footer at the bottom */}
         <Footer />
       </div>
     </Router>
