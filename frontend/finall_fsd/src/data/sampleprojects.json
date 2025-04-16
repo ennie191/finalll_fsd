@@ -1,5 +1,4 @@
-// src/data/sampleProjects.js
-export const sampleProjects = [
+[
     
     {
       id: 1,
@@ -554,7 +553,7 @@ export const sampleProjects = [
     {
       id: 54,
       title: "Disaster Response Coordination App",
-      department: "Mecahnical",
+      department: "Mechanical",
       academicYear: "2020",
       sdgs: [11],
       mentors: ["Prof. Morgan"],
