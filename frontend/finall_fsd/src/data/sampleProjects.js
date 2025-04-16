@@ -1,6 +1,6 @@
 // src/data/sampleProjects.js
 export const sampleProjects = [
-    // SDG 1 Projects (No Poverty)
+    
     {
       id: 1,
       title: "Microfinance App for Rural Areas",
@@ -52,7 +52,7 @@ export const sampleProjects = [
       status: "Active"
     },
     
-    // SDG 2 Projects (Zero Hunger)
+    
     {
       id: 6,
       title: "Smart Irrigation System",
@@ -104,7 +104,7 @@ export const sampleProjects = [
       status: "Research Phase"
     },
     
-    // SDG 3 Projects (Good Health and Well-being)
+    
     {
       id: 11,
       title: "Remote Healthcare Monitoring",
@@ -156,7 +156,7 @@ export const sampleProjects = [
       status: "Testing Phase"
     },
     
-    // SDG 4 Projects (Quality Education)
+    
     {
       id: 16,
       title: "Accessible Learning Platform",
@@ -208,7 +208,7 @@ export const sampleProjects = [
       status: "Active"
     },
     
-    // SDG 5 Projects (Gender Equality)
+    
     {
       id: 21,
       title: "Women in STEM Mentorship Platform",
@@ -260,7 +260,7 @@ export const sampleProjects = [
       status: "Research Phase"
     },
     
-    // SDG 6 Projects (Clean Water and Sanitation)
+    
     {
       id: 26,
       title: "Water Quality Monitoring Device",
@@ -312,7 +312,7 @@ export const sampleProjects = [
       status: "Active"
     },
     
-    // SDG 7 Projects (Affordable and Clean Energy)
+    
     {
       id: 31,
       title: "Portable Solar Charging Station",
@@ -364,7 +364,7 @@ export const sampleProjects = [
       status: "Research Phase"
     },
     
-    // SDG 8 Projects (Decent Work and Economic Growth)
+    
     {
       id: 36,
       title: "Gig Worker Protection Platform",
@@ -416,7 +416,7 @@ export const sampleProjects = [
       status: "Active"
     },
     
-    // SDG 9 Projects (Industry, Innovation and Infrastructure)
+    
     {
       id: 41,
       title: "Infrastructure Monitoring Sensors",
@@ -468,7 +468,7 @@ export const sampleProjects = [
       status: "Completed"
     },
     
-    // SDG 10 Projects (Reduced Inequalities)
+    
     {
       id: 46,
       title: "Accessibility App for Disabilities",
@@ -520,7 +520,7 @@ export const sampleProjects = [
       status: "Research Phase"
     },
     
-    // SDG 11 Projects (Sustainable Cities and Communities)
+    
     {
       id: 51,
       title: "Smart Energy Grid Management",
@@ -572,7 +572,7 @@ export const sampleProjects = [
       status: "Active"
     },
     
-    // SDG 12 Projects (Responsible Consumption and Production)
+    
     {
       id: 56,
       title: "Supply Chain Transparency Platform",
@@ -624,7 +624,7 @@ export const sampleProjects = [
       status: "Completed"
     },
     
-    // SDG 13 Projects (Climate Action)
+    
     {
       id: 61,
       title: "Carbon Footprint Calculator",
@@ -676,7 +676,7 @@ export const sampleProjects = [
       status: "Research Phase"
     },
     
-    // SDG 14 Projects (Life Below Water)
+    
     {
       id: 66,
       title: "Ocean Cleanup Drone",
@@ -728,7 +728,7 @@ export const sampleProjects = [
       status: "Research Phase"
     },
     
-    // SDG 15 Projects (Life on Land)
+    
     {
       id: 71,
       title: "Wildlife Tracking System",
@@ -780,7 +780,7 @@ export const sampleProjects = [
       status: "Research Phase"
     },
     
-    // SDG 16 Projects (Peace, Justice and Strong Institutions)
+    
     {
       id: 76,
       title: "Legal Aid Chatbot",
@@ -832,7 +832,7 @@ export const sampleProjects = [
       status: "Research Phase"
     },
     
-    // SDG 17 Projects (Partnerships for the Goals)
+    
     {
       id: 81,
       title: "Cross-Border Research Platform",

@@ -12,6 +12,7 @@ import { sampleProjects } from './data/sampleProjects';
 // import ProjectsSDG from './components/ProjectDetails';
 // import './styles/global.css';
 import AuthPage from './components/Auth';
+import ProjectsSDG from './pages/projects';
 
 // Import new components
 import StudentDashboard from './components/StudentDashboard';
@@ -32,6 +33,7 @@ function App() {
             <Route path="/mentors" element={<Mentors />} />
             <Route path="/sdg/:sdgNumber" element={<SDGProjects projects={sampleProjects} />} />
             <Route path="/media/videos" element={<VideoGallery />} />
+            <Route path="/projects" element={<ProjectsSDG/>} />
 
             {/* Protected Routes */}
             <Route
