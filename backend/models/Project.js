@@ -8,7 +8,8 @@ const projectSchema = new mongoose.Schema({
   department: { type: String },
   sdg: { type: String },
   academicYear: { type: String },
-  mentor: { type: String }
+  mentor: { type: String },
+  status: { type: String, default: "Pending" }, // Default status is "Pending"
 });
 
 module.exports = mongoose.model("Project", projectSchema);

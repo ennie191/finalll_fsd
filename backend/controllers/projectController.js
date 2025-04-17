@@ -55,6 +55,7 @@ exports.createProject = async (req, res) => {
       academicYear,
       mentor,
       owner: hardcodedOwnerId, // Use the hardcoded user ID
+      status: "Pending", // Default status is "Pending"s
     });
 
     return res.status(201).json(project);

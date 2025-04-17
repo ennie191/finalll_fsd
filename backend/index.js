@@ -6,7 +6,7 @@ const authRoutes = require("./routes/authRoutes"); // Import auth routes
 const projectRoutes = require("./routes/projectRoutes"); // Import project routes
 const collaborationRoutes = require("./routes/collaborationRoutes"); // Import collaboration routes
 const statsRoutes = require("./routes/statsRoutes"); // Import stats routes
-
+const adminRoutes = require("./routes/adminRoutes"); // Import admin routes
 // Initialize the app
 const app = express();
 
@@ -47,6 +47,7 @@ app.use("/api/auth", authRoutes); // Authentication routes
 app.use("/api/projects", projectRoutes); // Project routes
 app.use("/api/collaborations", collaborationRoutes); // Collaboration request routes
 app.use("/api/stats", statsRoutes); // Statistics routes
+app.use("/api/admin", adminRoutes); // Admin routes
 
 // Start the server
 const PORT = process.env.PORT || 5000;
