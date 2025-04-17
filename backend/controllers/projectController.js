@@ -9,7 +9,19 @@ exports.getAllProjects = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-
+// Fetch projects by SDG
+exports.getProjectsBySDG = async (req, res) => {
+  try {
+    const { sdg } = req.params; // Get the SDG from the request parameters
+    const projects = await Project.find({ sdgs: sdg }); // Find projects with the matching SDG
+    if (!projects.length) {
+      return res.status(404).json({ message: "No projects found for the selected SDG" });
+    }
+    return res.status(200).json(projects);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 exports.getProjectById = async (req, res) => {
   try {
     const { id } = req.params;
