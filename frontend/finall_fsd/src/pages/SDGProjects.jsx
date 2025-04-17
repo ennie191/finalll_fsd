@@ -30,7 +30,7 @@ const SDGProjects = () => {
           throw new Error('Failed to fetch projects');
         }
         const data = await response.json();
-        console.log(data); // Debugging line to check the fetched data
+        console.log("SDG PROJECTS PAGE" , data); // Debugging line to check the fetched data
         setProjects(data);
       } catch (err) {
         setError(err.message);

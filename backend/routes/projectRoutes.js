@@ -6,8 +6,8 @@ const projects = require('../data/sampleprojects.json'); // Import the sample pr
 const router = express.Router();
 
 router.get("/", getAllProjects);
-router.get("/:id", authMiddleware, getProjectById);
-router.post("/", authMiddleware, createProject);
+router.get("/:id", getProjectById);
+router.post("/", createProject);
 
 // Endpoint to fetch projects by SDG number, department, and academic year
 router.get('/:sdgNumber', (req, res) => {

@@ -35,18 +35,26 @@ exports.getProjectById = async (req, res) => {
   }
 };
 
+
 exports.createProject = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, department, sdg, academicYear, mentor } = req.body;
 
-    if (!title) {
-      return res.status(400).json({ message: "Title is required" });
+    if (!title || !department || !sdg || !academicYear) {
+      return res.status(400).json({ message: "Title, Department, SDG, and Academic Year are required" });
     }
+
+    // Hardcoded user ID for the owner
+    const hardcodedOwnerId = "64ffd05537538308fc7f9191"; // Replace with a valid user ID from your database
 
     const project = await Project.create({
       title,
       description,
-      owner: req.user._id,
+      department,
+      sdg,
+      academicYear,
+      mentor,
+      owner: hardcodedOwnerId, // Use the hardcoded user ID
     });
 
     return res.status(201).json(project);
@@ -54,3 +62,4 @@ exports.createProject = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+    

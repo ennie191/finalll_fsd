@@ -18,17 +18,7 @@ const MentorDashboard = () => {
     }
   ]);
 
-  const [requests, setRequests] = useState([
-    {
-      id: 1,
-      studentName: "Alice Johnson",
-      projectTitle: "Sustainable Energy Monitor",
-      department: "Environmental Engineering",
-      description: "Need guidance on implementing IoT sensors and data analysis",
-      skills: ["IoT", "Data Analysis", "Sustainability"],
-      status: "pending"
-    }
-  ]);
+  const [requests, setRequests] = useState([]);
 
   const [officeHours, setOfficeHours] = useState([
     {

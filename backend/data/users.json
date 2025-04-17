@@ -1,0 +1,17 @@
+[
+  {
+    "email": "m@m.com",
+    "password": "m",
+    "role": "mentor"
+  },
+  {
+    "email": "s@s.com",
+    "password": "s",
+    "role": "student"
+  },
+  {
+    "email": "c@c.com",
+    "password": "c",
+    "role": "collaborator"
+  }
+]

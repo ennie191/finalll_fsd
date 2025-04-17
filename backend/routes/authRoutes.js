@@ -1,27 +1,25 @@
-const express = require('express');
+const express = require("express");
+const User = require("../models/User");
+
 const router = express.Router();
 
-// Simulated user data
-const users = [
-  { email: 'admin@example.com', password: 'admin123', role: 'admin' },
-  { email: 'mentor@example.com', password: 'mentor123', role: 'mentor' },
-  { email: 'student@example.com', password: 'student123', role: 'student' },
-  { email: 'collaborator@example.com', password: 'collab123', role: 'collaborator' },
-];
-
 // Login endpoint
-router.post('/login', (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  // Find the user
-  const user = users.find((u) => u.email === email && u.password === password);
+  try {
+    // Find the user in the database
+    const user = await User.findOne({ email, password });
 
-  if (!user) {
-    return res.status(401).json({ message: 'Invalid email or password' });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // Send user data back to the frontend
+    res.status(200).json({ message: "Login successful", user });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
-
-  // Send user data back to the frontend
-  res.status(200).json({ message: 'Login successful', user });
 });
 
 module.exports = router;
