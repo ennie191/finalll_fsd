@@ -45,7 +45,7 @@ exports.createProject = async (req, res) => {
     }
 
     // Hardcoded user ID for the owner
-    const hardcodedOwnerId = "64ffd05537538308fc7f9191"; // Replace with a valid user ID from your database
+    const hardcodedOwnerId = "6800e357fb69aeea30cb3ae3"; // Replace with a valid user ID from your database
 
     const project = await Project.create({
       title,

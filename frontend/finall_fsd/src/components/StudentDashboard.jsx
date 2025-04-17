@@ -13,18 +13,26 @@ const StudentDashboard = () => {
   });
   const [showForm, setShowForm] = useState(false);
 
+  const loggedInUserId = "6800e357fb69aeea30cb3ae3"; // Replace this with dynamic fetching from localStorage if needed
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/projects");
         const data = await response.json();
-        setProjects(data);
+        console.log("Fetched projects:", data); // Debugging line
+        // Filter projects by logged-in user
+        const userProjects = data.filter(
+          (project) => project.owner && project.owner._id === loggedInUserId
+        );
+        console.log("User projects:", userProjects); // Debugging line
+        setProjects(userProjects);
       } catch (error) {
         console.error("Error fetching projects:", error);
       }
     };
     fetchProjects();
-  }, []);
+  }, [loggedInUserId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -155,7 +163,7 @@ const StudentDashboard = () => {
 
         {/* Active Projects */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Active Projects</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">My Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {projects.map((project) => (
               <div key={project._id} className="bg-white rounded-lg shadow-md p-6">
@@ -172,6 +180,9 @@ const StudentDashboard = () => {
                 </p>
                 <p className="text-gray-600">
                   <strong>Mentor:</strong> {project.mentor || "Not Assigned"}
+                </p>
+                <p className="text-gray-600">
+                  <strong>Status:</strong> {project.status || "Active"}
                 </p>
               </div>
             ))}
