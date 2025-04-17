@@ -9,8 +9,6 @@ import Mentors from './components/mentors';
 import VideoGallery from './components/videos';
 import SDGProjects from './pages/SDGProjects';
 import { sampleProjects } from './data/sampleProjects';
-// import ProjectsSDG from './components/ProjectDetails';
-// import './styles/global.css';
 import AuthPage from './components/Auth';
 import ProjectsSDG from './pages/projects';
 
@@ -33,41 +31,13 @@ function App() {
             <Route path="/mentors" element={<Mentors />} />
             <Route path="/sdg/:sdgNumber" element={<SDGProjects projects={sampleProjects} />} />
             <Route path="/media/videos" element={<VideoGallery />} />
-            <Route path="/projects" element={<ProjectsSDG/>} />
+            <Route path="/projects" element={<ProjectsSDG />} />
 
-            {/* Protected Routes */}
-            <Route
-              path="/admin/dashboard"
-              element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/mentor/dashboard"
-              element={
-                <ProtectedRoute allowedRoles={['mentor']}>
-                  <MentorDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/student/dashboard"
-              element={
-                <ProtectedRoute allowedRoles={['student']}>
-                  <StudentDashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/collaborator/dashboard"
-              element={
-                <ProtectedRoute allowedRoles={['collaborator']}>
-                  <CollaboratorDashboard />
-                </ProtectedRoute>
-              }
-            />
+            {/* Unprotected Routes */}
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/mentor/dashboard" element={<MentorDashboard />} />
+            <Route path="/student/dashboard" element={<StudentDashboard />} />
+            <Route path="/collaborator/dashboard" element={<CollaboratorDashboard />} />
           </Routes>
         </div>
         <Footer />

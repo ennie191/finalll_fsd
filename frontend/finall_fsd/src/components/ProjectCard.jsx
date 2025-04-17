@@ -79,15 +79,6 @@ const ProjectCard = ({ project, isAchievement }) => {
           </p>
         </div>
 
-        {/* Join Button (conditionally rendered) */}
-        {!isAchievement && (
-          <Link
-            to={`/join-project/${project.id}`}
-            className="block w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-center rounded-md font-medium text-sm transition-colors"
-          >
-            Join Project
-          </Link>
-        )}
       </div>
     </div>
   );
