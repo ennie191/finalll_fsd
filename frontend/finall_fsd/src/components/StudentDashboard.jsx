@@ -8,7 +8,7 @@ const StudentDashboard = () => {
     title: "",
     description: "",
     department: "",
-    sdg: "",
+    sdgs: [], // Changed name from sdg to sdgs to match backend schema
     academicYear: "",
     mentor: "",
   });
@@ -34,7 +34,14 @@ const StudentDashboard = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewProject({ ...newProject, [name]: value });
+    
+    // Special handling for SDGs field to convert comma-separated string to array
+    if (name === "sdgs") {
+      const sdgsArray = value.split(",").map(item => item.trim()).filter(item => item !== "");
+      setNewProject({ ...newProject, [name]: sdgsArray });
+    } else {
+      setNewProject({ ...newProject, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -60,7 +67,7 @@ const StudentDashboard = () => {
         title: "",
         description: "",
         department: "",
-        sdg: "",
+        sdgs: [], // Reset to empty array with correct field name
         academicYear: "",
         mentor: "",
       });
@@ -130,13 +137,14 @@ const StudentDashboard = () => {
               </div>
 
               <div className="form-group">
-                <label>SDG</label>
+                <label>SDGs (Comma-separated values)</label>
                 <select
-                  name="sdg"
-                  value={newProject.sdg}
+                  name="sdgs"
+                  value={newProject.sdgs.join(", ")}
                   onChange={handleInputChange}
                   className="neuro-input"
-                  required
+                  placeholder="e.g. No Poverty, Zero Hunger, Quality Education"
+                required
                 >
                   <option value="">Select SDG</option>
                   <option value="SDG 1 - No Poverty">SDG 1 - No Poverty</option>
@@ -158,6 +166,7 @@ const StudentDashboard = () => {
                   <option value="SDG 17 - Partnerships for the Goals">SDG 17 - Partnerships for the Goals</option>  
                 </select>
               </div>
+              <small className="text-gray-500">Enter SDGs separated by commas</small>
             </div>
 
             <div className="form-row">

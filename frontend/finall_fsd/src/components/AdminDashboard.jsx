@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,  useEffect  } from 'react';
 import { FaUsers, FaProjectDiagram, FaChartBar, FaCog, FaUserGraduate, FaUserTie, FaGlobe, FaSearch, FaBell, FaEllipsisV } from 'react-icons/fa';
 
 // Custom CSS for neuromorphic effects
@@ -206,24 +206,8 @@ const AdminDashboard = () => {
     ]
   });
 
-  const [projects, setProjects] = useState([
-    { 
-      _id: 1, 
-      title: "AI Healthcare Solution", 
-      department: "Computer Science", 
-      status: "Pending", 
-      sdgs: [3, 9], 
-      description: "An AI-powered solution to improve healthcare accessibility in rural areas." 
-    },
-    { 
-      _id: 2, 
-      title: "Sustainable Agriculture", 
-      department: "Environmental Science", 
-      status: "Pending", 
-      sdgs: [2, 12, 15], 
-      description: "Exploring sustainable farming practices to improve crop yield while reducing environmental impact." 
-    },
-  ]);
+  const [projects, setProjects] = useState([]);
+  const [collaborationRequests, setCollaborationRequests] = useState([]);
 
   useEffect(() => {
     const fetchPendingProjects = async () => {
@@ -243,7 +227,18 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchRequests = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/collaborations");
+        const data = await response.json();
+        setCollaborationRequests(data);
+      } catch (error) {
+        console.error("Error fetching collaboration requests:", error);
+      }
+    };
+
     fetchPendingProjects();
+    fetchRequests();
   }, []);
 
   const handleAction = async (id, action) => {
@@ -278,6 +273,50 @@ const AdminDashboard = () => {
       setTimeout(() => {
         setMessage(null);
       }, 3000);
+    }
+  };
+
+  const handleRequestAction = async (id, action) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/collaborations/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: action }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update request status");
+      }
+      setCollaborationRequests((prev) =>
+        prev.map((request) =>
+          request._id === id ? { ...request, status: action } : request
+        )
+      );
+    } catch (error) {
+      console.error("Error updating request status:", error);
+    }
+  };
+
+  const handleRequestAction = async (id, action) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/collaborations/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: action }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update request status");
+      }
+      setCollaborationRequests((prev) =>
+        prev.map((request) =>
+          request._id === id ? { ...request, status: action } : request
+        )
+      );
+    } catch (error) {
+      console.error("Error updating request status:", error);
     }
   };
 
@@ -389,6 +428,16 @@ const AdminDashboard = () => {
               }`}
             >
               SDGs
+            </button>
+            <button
+              onClick={() => setActiveTab('collaborations')}
+              className={`px-6 py-3 text-sm font-medium ${
+                activeTab === 'sdgs'
+                  ? 'tab-active'
+                  : 'text-cyan-300 hover:text-cyan-100'
+              }`}
+            >
+              Collaborations
             </button>
           </div>
 
@@ -587,6 +636,66 @@ const AdminDashboard = () => {
                       </div>
                       <div className="text-3xl font-bold blue-glow mb-2">{stat.projects}</div>
                       <div className="text-cyan-200 opacity-70">Active Projects</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'collaborations' && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold mb-4">Collaboration Requests</h2>
+                <div className="space-y-4">
+                  {collaborationRequests.map((request) => (
+                    <div key={request._id} className="bg-white p-4 rounded-lg shadow-md">
+                      <h3 className="text-lg font-bold">{request.collaboratorName}</h3>
+                      <p>{request.organization}</p>
+                      <p>{request.description}</p>
+                      <p>Status: {request.status}</p>
+                      <div className="flex gap-4 mt-4">
+                        <button
+                          onClick={() => handleRequestAction(request._id, "Approved")}
+                          className="bg-green-500 text-white px-4 py-2 rounded-lg"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          onClick={() => handleRequestAction(request._id, "Rejected")}
+                          className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                        >
+                          Reject
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'collaborations' && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold mb-4">Collaboration Requests</h2>
+                <div className="space-y-4">
+                  {collaborationRequests.map((request) => (
+                    <div key={request._id} className="bg-white p-4 rounded-lg shadow-md">
+                      <h3 className="text-lg font-bold">{request.collaboratorName}</h3>
+                      <p>{request.organization}</p>
+                      <p>{request.description}</p>
+                      <p>Status: {request.status}</p>
+                      <div className="flex gap-4 mt-4">
+                        <button
+                          onClick={() => handleRequestAction(request._id, "Approved")}
+                          className="bg-green-500 text-white px-4 py-2 rounded-lg"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          onClick={() => handleRequestAction(request._id, "Rejected")}
+                          className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                        >
+                          Reject
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>

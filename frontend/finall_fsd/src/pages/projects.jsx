@@ -11,7 +11,7 @@ const ProjectsSDG = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:5000/api/projects/sdg/${sdg}`, {
+      const response = await fetch(`http://localhost:5000/api/projects/${sdg}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

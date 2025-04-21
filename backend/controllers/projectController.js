@@ -9,23 +9,11 @@ exports.getAllProjects = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-// Fetch projects by SDG
-exports.getProjectsBySDG = async (req, res) => {
-  try {
-    const { sdg } = req.params; // Get the SDG from the request parameters
-    const projects = await Project.find({ sdgs: sdg }); // Find projects with the matching SDG
-    if (!projects.length) {
-      return res.status(404).json({ message: "No projects found for the selected SDG" });
-    }
-    return res.status(200).json(projects);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
-};
+
 exports.getProjectById = async (req, res) => {
   try {
-    const { id } = req.params;
-    const project = await Project.findById(id).populate("owner", "name email");
+    const { _id } = req.params;
+    const project = await Project.findById(_id).populate("owner", "name email");
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
@@ -38,10 +26,10 @@ exports.getProjectById = async (req, res) => {
 
 exports.createProject = async (req, res) => {
   try {
-    const { title, description, department, sdg, academicYear, mentor } = req.body;
+    const { title, description, department, sdgs, academicYear, mentor } = req.body;
 
-    if (!title || !department || !sdg || !academicYear) {
-      return res.status(400).json({ message: "Title, Department, SDG, and Academic Year are required" });
+    if (!title || !department || !sdgs || !academicYear) {
+      return res.status(400).json({ message: "Title, Department, SDGs, and Academic Year are required" });
     }
 
     // Hardcoded user ID for the owner
@@ -51,11 +39,11 @@ exports.createProject = async (req, res) => {
       title,
       description,
       department,
-      sdg,
+      sdgs, // Changed from sdg to sdgs to match the model
       academicYear,
       mentor,
       owner: hardcodedOwnerId, // Use the hardcoded user ID
-      status: "Pending", // Default status is "Pending"s
+      status: "Pending", // Default status is "Pending"
     });
 
     return res.status(201).json(project);
@@ -64,3 +52,27 @@ exports.createProject = async (req, res) => {
   }
 };
     
+exports.getProjectsBySDG = async (req, res) => {
+  console.log("Fetching projects by SDG number...");
+  const { sdgNumber } = req.params;
+  console.log("SDG Number:", sdgNumber); // Log the SDG number for debugging
+  const { department, academicYear } = req.query;
+
+  // Filter projects by SDG number
+  let filteredProjects = projects.filter((project) =>
+    project.sdgs.includes(parseInt(sdgNumber))
+  );
+
+  // Apply department filter if provided
+  if (department) {
+    filteredProjects = filteredProjects.filter((project) => project.department === department);
+  }
+
+  // Apply academic year filter if provided
+  if (academicYear) {
+    filteredProjects = filteredProjects.filter((project) => project.academicYear === academicYear);
+  }
+
+  // Return the filtered projects
+  res.json(filteredProjects);
+};
