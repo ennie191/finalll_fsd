@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaUserFriends, FaProjectDiagram, FaBell, FaChartLine, FaCheckCircle, FaTimesCircle, FaUser, FaEdit, FaCertificate, FaLinkedin, FaGithub } from "react-icons/fa";
 
 const CollaboratorDashboard = () => {
-  const [activeTab, setActiveTab] = useState("requests");
+  const [activeTab, setActiveTab] = useState("profile");
 
   // Mock data for collaboration requests
   const [collaborationRequests, setCollaborationRequests] = useState([
@@ -125,11 +125,11 @@ const CollaboratorDashboard = () => {
   const TabButton = ({ name, icon, label }) => (
     <button
       onClick={() => setActiveTab(name)}
-      className={`flex items-center space-x-2 p-4 w-full ${
+      className={`flex items-center space-x-2 p-4 w-full transition-all rounded-xl ${
         activeTab === name
-          ? "bg-blue-500 text-white"
-          : "hover:bg-blue-50 text-gray-700"
-      } transition-all rounded-lg`}
+          ? "bg-cyan-500 text-white shadow-lg shadow-cyan-500/30"
+          : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+      }`}
     >
       {icon}
       <span>{label}</span>
@@ -141,31 +141,31 @@ const CollaboratorDashboard = () => {
       case "requests":
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold">Collaboration Requests</h2>
-            <div className="grid gap-6">
+            <h2 className="text-3xl font-bold text-cyan-400 mb-6 drop-shadow-lg shadow-cyan-500/50">Collaboration Requests</h2>
+            <div className="grid gap-8">
               {collaborationRequests.map((request) => (
-                <div key={request.id} className="bg-white rounded-lg shadow-md p-6">
+                <div key={request.id} className="bg-gray-800 rounded-2xl p-6 shadow-[5px_5px_15px_rgba(9,9,32,0.8),-5px_-5px_15px_rgba(40,60,100,0.15)] border-t border-l border-gray-700">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h3 className="text-xl font-semibold">{request.projectTitle}</h3>
-                      <p className="text-gray-600 mt-1">Student: {request.studentName}</p>
-                      <p className="text-gray-600">Department: {request.department}</p>
+                      <h3 className="text-xl font-semibold text-cyan-300">{request.projectTitle}</h3>
+                      <p className="text-gray-400 mt-1">Student: {request.studentName}</p>
+                      <p className="text-gray-400">Department: {request.department}</p>
                       
                       <div className="flex gap-2 mt-3">
                         {request.sdgs.map((sdg) => (
-                          <span key={sdg} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                          <span key={sdg} className="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm shadow-inner shadow-cyan-800/50">
                             SDG {sdg}
                           </span>
                         ))}
                       </div>
 
-                      <p className="mt-4 text-gray-700">{request.description}</p>
+                      <p className="mt-4 text-gray-300">{request.description}</p>
 
                       <div className="mt-3">
-                        <p className="text-sm font-semibold">Required Skills:</p>
+                        <p className="text-sm font-semibold text-gray-300">Required Skills:</p>
                         <div className="flex flex-wrap gap-2 mt-1">
                           {request.skills.map((skill, index) => (
-                            <span key={index} className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                            <span key={index} className="bg-gray-700 text-cyan-300 px-3 py-1 rounded-full text-sm">
                               {skill}
                             </span>
                           ))}
@@ -173,21 +173,21 @@ const CollaboratorDashboard = () => {
                       </div>
                     </div>
                     <div className="flex flex-col items-end">
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-gray-400">
                         Requested on: {request.dateRequested}
                       </span>
                       {request.status === 'pending' && (
-                        <div className="flex gap-2 mt-4">
+                        <div className="flex gap-3 mt-4">
                           <button
                             onClick={() => handleRequestAction(request.id, 'accepted')}
-                            className="flex items-center gap-1 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                            className="flex items-center gap-1 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-500 shadow-lg shadow-emerald-700/30 transition-all"
                           >
                             <FaCheckCircle className="w-4 h-4" />
                             Accept
                           </button>
                           <button
                             onClick={() => handleRequestAction(request.id, 'rejected')}
-                            className="flex items-center gap-1 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                            className="flex items-center gap-1 bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-500 shadow-lg shadow-rose-700/30 transition-all"
                           >
                             <FaTimesCircle className="w-4 h-4" />
                             Reject
@@ -205,39 +205,39 @@ const CollaboratorDashboard = () => {
       case "activeCollaborations":
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold">Active Collaborations</h2>
-            <div className="grid gap-6">
+            <h2 className="text-3xl font-bold text-cyan-400 mb-6 drop-shadow-lg shadow-cyan-500/50">Active Collaborations</h2>
+            <div className="grid gap-8">
               {activeCollaborations.map((project) => (
-                <div key={project.id} className="bg-white rounded-lg shadow-md p-6">
+                <div key={project.id} className="bg-gray-800 rounded-2xl p-6 shadow-[5px_5px_15px_rgba(9,9,32,0.8),-5px_-5px_15px_rgba(40,60,100,0.15)] border-t border-l border-gray-700">
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h3 className="text-xl font-semibold">{project.projectTitle}</h3>
-                      <p className="text-gray-600">Team Lead: {project.teamLead}</p>
-                      <p className="text-gray-600">Department: {project.department}</p>
+                      <h3 className="text-xl font-semibold text-cyan-300">{project.projectTitle}</h3>
+                      <p className="text-gray-400">Team Lead: {project.teamLead}</p>
+                      <p className="text-gray-400">Department: {project.department}</p>
                       
                       <div className="flex gap-2 mt-3">
                         {project.sdgs.map((sdg) => (
-                          <span key={sdg} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                          <span key={sdg} className="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm shadow-inner shadow-cyan-800/50">
                             SDG {sdg}
                           </span>
                         ))}
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-gray-500">Started: {project.startDate}</p>
-                      <p className="text-sm text-gray-500 mt-1">Next Meeting: {project.nextMeeting}</p>
+                      <p className="text-sm text-gray-400">Started: {project.startDate}</p>
+                      <p className="text-sm text-gray-400 mt-1">Next Meeting: {project.nextMeeting}</p>
                     </div>
                   </div>
 
                   {/* Progress Bar */}
                   <div className="mt-6">
-                    <div className="flex justify-between text-sm text-gray-600 mb-1">
+                    <div className="flex justify-between text-sm text-gray-300 mb-1">
                       <span>Project Progress</span>
                       <span>{project.progress}%</span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-gray-700 rounded-full h-3 shadow-inner">
                       <div
-                        className="bg-blue-500 rounded-full h-2"
+                        className="bg-cyan-500 rounded-full h-3 shadow-lg shadow-cyan-500/50"
                         style={{ width: `${project.progress}%` }}
                       ></div>
                     </div>
@@ -245,23 +245,23 @@ const CollaboratorDashboard = () => {
 
                   {/* Milestones */}
                   <div className="mt-6">
-                    <h4 className="font-semibold mb-3">Milestones</h4>
+                    <h4 className="font-semibold mb-3 text-gray-200">Milestones</h4>
                     <div className="space-y-2">
                       {project.milestones.map((milestone) => (
-                        <div key={milestone.id} className="flex items-center justify-between bg-gray-50 p-3 rounded">
+                        <div key={milestone.id} className="flex items-center justify-between bg-gray-700 p-3 rounded-lg shadow-inner shadow-black/30">
                           <div className="flex items-center gap-2">
                             <input
                               type="checkbox"
                               checked={milestone.completed}
                               readOnly
-                              className="rounded text-blue-500"
+                              className="rounded text-cyan-500 bg-gray-600 border-none"
                             />
-                            <span className={milestone.completed ? "line-through text-gray-500" : ""}>
+                            <span className={milestone.completed ? "line-through text-gray-400" : "text-gray-200"}>
                               {milestone.title}
                             </span>
                           </div>
                           <span className={`text-sm ${
-                            milestone.completed ? "text-green-600" : "text-gray-500"
+                            milestone.completed ? "text-emerald-400" : "text-gray-400"
                           }`}>
                             {milestone.completed ? "Completed" : "In Progress"}
                           </span>
@@ -272,10 +272,10 @@ const CollaboratorDashboard = () => {
 
                   {/* Team Members */}
                   <div className="mt-6">
-                    <h4 className="font-semibold mb-3">Team Members</h4>
+                    <h4 className="font-semibold mb-3 text-gray-200">Team Members</h4>
                     <div className="flex flex-wrap gap-2">
                       {project.teamMembers.map((member, index) => (
-                        <span key={index} className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                        <span key={index} className="bg-gray-700 text-cyan-300 px-3 py-1 rounded-full text-sm">
                           {member}
                         </span>
                       ))}
@@ -283,14 +283,14 @@ const CollaboratorDashboard = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3 mt-6">
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                  <div className="flex flex-wrap gap-3 mt-6">
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 shadow-lg shadow-blue-700/30 transition-all">
                       Update Progress
                     </button>
-                    <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-500 shadow-lg shadow-purple-700/30 transition-all">
                       Schedule Meeting
                     </button>
-                    <button className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 shadow-lg shadow-indigo-700/30 transition-all">
                       View Documents
                     </button>
                   </div>
@@ -303,23 +303,23 @@ const CollaboratorDashboard = () => {
       case "analytics":
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold">Collaboration Analytics</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-lg font-semibold mb-4">Project Distribution</h3>
-                <div className="h-64 bg-gray-100 rounded flex items-center justify-center">
+            <h2 className="text-3xl font-bold text-cyan-400 mb-6 drop-shadow-lg shadow-cyan-500/50">Collaboration Analytics</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-gray-800 p-6 rounded-2xl shadow-[5px_5px_15px_rgba(9,9,32,0.8),-5px_-5px_15px_rgba(40,60,100,0.15)] border-t border-l border-gray-700">
+                <h3 className="text-lg font-semibold mb-4 text-cyan-300">Project Distribution</h3>
+                <div className="h-64 bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 shadow-inner shadow-black/30">
                   [Project Distribution Chart]
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-lg font-semibold mb-4">SDG Impact</h3>
-                <div className="h-64 bg-gray-100 rounded flex items-center justify-center">
+              <div className="bg-gray-800 p-6 rounded-2xl shadow-[5px_5px_15px_rgba(9,9,32,0.8),-5px_-5px_15px_rgba(40,60,100,0.15)] border-t border-l border-gray-700">
+                <h3 className="text-lg font-semibold mb-4 text-cyan-300">SDG Impact</h3>
+                <div className="h-64 bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 shadow-inner shadow-black/30">
                   [SDG Impact Chart]
                 </div>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-lg font-semibold mb-4">Progress Overview</h3>
-                <div className="h-64 bg-gray-100 rounded flex items-center justify-center">
+              <div className="bg-gray-800 p-6 rounded-2xl shadow-[5px_5px_15px_rgba(9,9,32,0.8),-5px_-5px_15px_rgba(40,60,100,0.15)] border-t border-l border-gray-700">
+                <h3 className="text-lg font-semibold mb-4 text-cyan-300">Progress Overview</h3>
+                <div className="h-64 bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 shadow-inner shadow-black/30">
                   [Progress Overview Chart]
                 </div>
               </div>
@@ -330,57 +330,57 @@ const CollaboratorDashboard = () => {
       case "profile":
         return (
           <div className="space-y-6">
-            <div className="bg-white rounded-lg shadow-md p-8">
+            <div className="bg-gray-800 rounded-2xl shadow-[5px_5px_15px_rgba(9,9,32,0.8),-5px_-5px_15px_rgba(40,60,100,0.15)] p-8 border-t border-l border-gray-700">
               {/* Header Section */}
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-6">
-                  <div className="w-32 h-32 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="text-4xl font-bold text-blue-500">
-                      {profile.name.split(' ').map(n => n[0]).join('')}
+              <div className="flex flex-col md:flex-row items-start justify-between gap-4">
+                <div className="flex flex-col md:flex-row items-center md:space-x-6 space-y-4 md:space-y-0">
+                  <div className="w-32 h-32 bg-cyan-900 rounded-full flex items-center justify-center shadow-lg shadow-cyan-800/30 border border-cyan-700">
+                    <span className="text-4xl font-bold text-cyan-400">
+                      DSJ
                     </span>
                   </div>
                   <div>
-                    <h2 className="text-3xl font-bold">{profile.name}</h2>
-                    <p className="text-xl text-gray-600">{profile.title}</p>
-                    <p className="text-gray-500">{profile.department}</p>
-                    <div className="flex space-x-4 mt-4">
-                      <a href={profile.contact.linkedin} className="text-blue-600 hover:text-blue-800">
+                    <h2 className="text-3xl font-bold text-cyan-300 text-center md:text-left">{profile.name}</h2>
+                    <p className="text-xl text-gray-300 text-center md:text-left">{profile.title}</p>
+                    <p className="text-gray-400 text-center md:text-left">{profile.department}</p>
+                    <div className="flex space-x-4 mt-4 justify-center md:justify-start">
+                      <a href={profile.contact.linkedin} className="text-cyan-400 hover:text-cyan-300 transition-colors">
                         <FaLinkedin size={24} />
                       </a>
-                      <a href={profile.contact.github} className="text-gray-700 hover:text-gray-900">
+                      <a href={profile.contact.github} className="text-gray-400 hover:text-gray-300 transition-colors">
                         <FaGithub size={24} />
                       </a>
                     </div>
                   </div>
                 </div>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-blue-600">
+                <button className="bg-cyan-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-cyan-500 shadow-lg shadow-cyan-700/30 transition-all self-center md:self-start">
                   <FaEdit />
                   <span>Edit Profile</span>
                 </button>
               </div>
 
               {/* Stats Cards */}
-              <div className="grid grid-cols-4 gap-6 mt-8">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
                 {Object.entries(profile.stats).map(([key, value]) => (
-                  <div key={key} className="bg-gray-50 p-4 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-600">{value}</div>
-                    <div className="text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                  <div key={key} className="bg-gray-700 p-4 rounded-xl text-center shadow-inner shadow-black/20">
+                    <div className="text-2xl font-bold text-cyan-400">{value}</div>
+                    <div className="text-gray-300 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
                 ))}
               </div>
 
               {/* Bio Section */}
               <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-3">About</h3>
-                <p className="text-gray-700 leading-relaxed">{profile.bio}</p>
+                <h3 className="text-xl font-semibold mb-3 text-cyan-300">About</h3>
+                <p className="text-gray-300 leading-relaxed">{profile.bio}</p>
               </div>
 
               {/* Expertise Section */}
               <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-3">Areas of Expertise</h3>
+                <h3 className="text-xl font-semibold mb-3 text-cyan-300">Areas of Expertise</h3>
                 <div className="flex flex-wrap gap-2">
                   {profile.expertise.map((skill, index) => (
-                    <span key={index} className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">
+                    <span key={index} className="bg-cyan-900 text-cyan-300 px-4 py-2 rounded-full shadow-inner shadow-cyan-800/50">
                       {skill}
                     </span>
                   ))}
@@ -389,15 +389,15 @@ const CollaboratorDashboard = () => {
 
               {/* Education Section */}
               <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-3">Education</h3>
+                <h3 className="text-xl font-semibold mb-3 text-cyan-300">Education</h3>
                 <div className="space-y-4">
                   {profile.education.map((edu, index) => (
-                    <div key={index} className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
+                    <div key={index} className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gray-700 p-4 rounded-lg shadow-inner shadow-black/20">
                       <div>
-                        <div className="font-semibold">{edu.degree}</div>
-                        <div className="text-gray-600">{edu.institution}</div>
+                        <div className="font-semibold text-gray-200">{edu.degree}</div>
+                        <div className="text-gray-400">{edu.institution}</div>
                       </div>
-                      <div className="text-gray-500">{edu.year}</div>
+                      <div className="text-cyan-400 mt-2 sm:mt-0">{edu.year}</div>
                     </div>
                   ))}
                 </div>
@@ -405,15 +405,15 @@ const CollaboratorDashboard = () => {
 
               {/* Certifications Section */}
               <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-3">Certifications</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <h3 className="text-xl font-semibold mb-3 text-cyan-300">Certifications</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {profile.certifications.map((cert, index) => (
-                    <div key={index} className="flex items-start space-x-3 bg-gray-50 p-4 rounded-lg">
-                      <FaCertificate className="text-blue-500 text-xl flex-shrink-0 mt-1" />
+                    <div key={index} className="flex items-start space-x-3 bg-gray-700 p-4 rounded-lg shadow-inner shadow-black/20">
+                      <FaCertificate className="text-cyan-400 text-xl flex-shrink-0 mt-1" />
                       <div>
-                        <div className="font-semibold">{cert.name}</div>
-                        <div className="text-gray-600">{cert.issuer}</div>
-                        <div className="text-gray-500 text-sm">{cert.year}</div>
+                        <div className="font-semibold text-gray-200">{cert.name}</div>
+                        <div className="text-gray-400">{cert.issuer}</div>
+                        <div className="text-cyan-400 text-sm">{cert.year}</div>
                       </div>
                     </div>
                   ))}
@@ -422,19 +422,19 @@ const CollaboratorDashboard = () => {
 
               {/* Contact Information */}
               <div className="mt-8">
-                <h3 className="text-xl font-semibold mb-3">Contact Information</h3>
-                <div className="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
+                <h3 className="text-xl font-semibold mb-3 text-cyan-300">Contact Information</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-700 p-4 rounded-lg shadow-inner shadow-black/20">
                   <div>
-                    <div className="font-semibold">Email</div>
-                    <div className="text-gray-600">{profile.contact.email}</div>
+                    <div className="font-semibold text-gray-200">Email</div>
+                    <div className="text-gray-400">{profile.contact.email}</div>
                   </div>
                   <div>
-                    <div className="font-semibold">Office</div>
-                    <div className="text-gray-600">{profile.contact.office}</div>
+                    <div className="font-semibold text-gray-200">Office</div>
+                    <div className="text-gray-400">{profile.contact.office}</div>
                   </div>
                   <div>
-                    <div className="font-semibold">Office Hours</div>
-                    <div className="text-gray-600">{profile.contact.officeHours}</div>
+                    <div className="font-semibold text-gray-200">Office Hours</div>
+                    <div className="text-gray-400">{profile.contact.officeHours}</div>
                   </div>
                 </div>
               </div>
@@ -448,14 +448,33 @@ const CollaboratorDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="flex">
-        {/* Sidebar */}
-        <div className="w-64 bg-white h-screen shadow-lg p-4 space-y-4 fixed">
-          <div className="text-2xl font-bold text-center p-4 border-b">
-            Collaborator Dashboard
+    <div className="min-h-screen bg-gray-900 text-gray-200">
+      {/* Top navbar - similar to the reference image */}
+      <div className="bg-gray-800 border-b border-gray-700 px-4 py-2 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <img src="/api/placeholder/40/40" alt="TISD Logo" className="h-10" />
+          <div>
+            <h1 className="text-cyan-400 font-bold text-xl">TISD</h1>
+            <p className="text-gray-400 text-xs">Tracking Innovation for Sustainable Development</p>
           </div>
-          <nav className="space-y-2">
+        </div>
+        <div className="hidden md:flex space-x-3">
+          <button className="px-4 py-2 text-gray-300 hover:text-white">Home</button>
+          <button className="px-4 py-2 text-gray-300 hover:text-white">Mentors</button>
+          <button className="px-4 py-2 text-gray-300 hover:text-white">Collaborators</button>
+          <button className="px-4 py-2 text-gray-300 hover:text-white">Media</button>
+          <button className="px-4 py-2 text-gray-300 hover:text-white">Contact</button>
+          <button className="px-4 py-2 text-cyan-300 bg-gray-700 rounded-lg">Login</button>
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row">
+        {/* Sidebar - now scrolls with content */}
+        <div className="w-full md:w-64 bg-gray-800 p-4 space-y-4 border-r border-gray-700">
+          <div className="text-2xl font-bold text-center p-4 border-b border-gray-700 text-cyan-400 drop-shadow-lg shadow-cyan-500/50">
+            Collaborator<br/>Dashboard
+          </div>
+          <nav className="space-y-3 mt-6">
             <TabButton
               name="requests"
               icon={<FaUserFriends className="w-5 h-5" />}
@@ -480,7 +499,7 @@ const CollaboratorDashboard = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 ml-64 p-8">
+        <div className="flex-1 p-4 md:p-8">
           {renderContent()}
         </div>
       </div>
