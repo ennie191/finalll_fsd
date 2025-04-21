@@ -24,7 +24,7 @@ const SDGProjects = () => {
         if (yearFilter) queryParams.append('academicYear', yearFilter);
 
         const response = await fetch(
-          `http://localhost:5000/api/projects/${sdgNumber}?${queryParams.toString()}`
+          `http://localhost:5000/api/projects/`
         );
         if (!response.ok) {
           throw new Error('Failed to fetch projects');

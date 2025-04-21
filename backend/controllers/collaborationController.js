@@ -13,18 +13,21 @@ exports.getAllCollaborationRequests = async (req, res) => {
 
 exports.createCollaborationRequest = async (req, res) => {
   try {
-    const { projectId, collaboratorId } = req.body;
+    const { collaboratorName, email, organization, description } = req.body;
 
-    if (!projectId || !collaboratorId) {
-      return res.status(400).json({ message: "Project ID and Collaborator ID are required" });
+    if (!collaboratorName || !email || !organization || !description) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
     const request = await CollaborationRequest.create({
-      project: projectId,
-      collaborator: collaboratorId,
+      collaboratorName,
+      email,
+      organization,
+      description,
+      status: 'pending',
     });
 
-    return res.status(201).json(request);
+    return res.status(201).json({ message: "Collaboration request created successfully", request });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaUsers, FaProjectDiagram, FaChartBar, FaCog, FaUserGraduate, FaUserTie, FaGlobe, FaSearch, FaBell, FaEllipsisV } from 'react-icons/fa';
 
 const AdminDashboard = () => {
@@ -25,6 +25,7 @@ const AdminDashboard = () => {
   });
 
   const [projects, setProjects] = useState([]);
+  const [collaborationRequests, setCollaborationRequests] = useState([]);
 
   useEffect(() => {
     const fetchPendingProjects = async () => {
@@ -42,7 +43,18 @@ const AdminDashboard = () => {
       }
     };
 
+    const fetchRequests = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/collaborations");
+        const data = await response.json();
+        setCollaborationRequests(data);
+      } catch (error) {
+        console.error("Error fetching collaboration requests:", error);
+      }
+    };
+
     fetchPendingProjects();
+    fetchRequests();
   }, []);
 
   const handleAction = async (id, action) => {
@@ -68,6 +80,28 @@ const AdminDashboard = () => {
       alert(`Project ${action.toLowerCase()} successfully!`);
     } catch (error) {
       console.error("Error updating project status:", error);
+    }
+  };
+
+  const handleRequestAction = async (id, action) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/collaborations/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: action }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update request status");
+      }
+      setCollaborationRequests((prev) =>
+        prev.map((request) =>
+          request._id === id ? { ...request, status: action } : request
+        )
+      );
+    } catch (error) {
+      console.error("Error updating request status:", error);
     }
   };
 
@@ -171,6 +205,16 @@ const AdminDashboard = () => {
               }`}
             >
               SDGs
+            </button>
+            <button
+              onClick={() => setActiveTab('collaborations')}
+              className={`px-6 py-3 text-sm font-medium ${
+                activeTab === 'collaborations'
+                  ? 'border-b-2 border-blue-500 text-blue-500'
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              Collaborations
             </button>
           </div>
 
@@ -286,70 +330,70 @@ const AdminDashboard = () => {
               </div>
             )}
 
-{activeTab === 'projects' && (
-  <div className="space-y-6">
-    {/* Projects List */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {projects && projects.length > 0 ? (
-        projects.map((project) => (
-          <div key={project._id} className="bg-gray-50 rounded-lg p-6">
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h3 className="text-lg font-semibold">{project.title}</h3>
-                <p className="text-gray-600">{project.department}</p>
+            {activeTab === 'projects' && (
+              <div className="space-y-6">
+                {/* Projects List */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {projects && projects.length > 0 ? (
+                    projects.map((project) => (
+                      <div key={project._id} className="bg-gray-50 rounded-lg p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <div>
+                            <h3 className="text-lg font-semibold">{project.title}</h3>
+                            <p className="text-gray-600">{project.department}</p>
+                          </div>
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                              project.status === 'Approved'
+                                ? 'bg-green-100 text-green-800'
+                                : project.status === 'Rejected'
+                                ? 'bg-red-100 text-red-800'
+                                : 'bg-gray-100 text-gray-800'
+                            }`}
+                          >
+                            {project.status}
+                          </span>
+                        </div>
+
+                        <div className="flex gap-2 mb-4">
+                          {project.sdgs &&
+                            project.sdgs.map((sdg) => (
+                              <span
+                                key={sdg}
+                                className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs"
+                              >
+                                SDG {sdg}
+                              </span>
+                            ))}
+                        </div>
+
+                        <div className="mb-4">
+                          <p className="text-sm text-gray-600">{project.description}</p>
+                        </div>
+
+                        {/* Approval Buttons */}
+                        <div className="flex gap-4">
+                          <button
+                            onClick={() => handleAction(project._id, 'Approved')}
+                            className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
+                          >
+                            Approve
+                          </button>
+                          <button
+                            onClick={() => handleAction(project._id, 'Rejected')}
+                            className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg"
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-gray-600">No pending projects to display.</p>
+                  )}
+                </div>
               </div>
-              <span
-                className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                  project.status === 'Approved'
-                    ? 'bg-green-100 text-green-800'
-                    : project.status === 'Rejected'
-                    ? 'bg-red-100 text-red-800'
-                    : 'bg-gray-100 text-gray-800'
-                }`}
-              >
-                {project.status}
-              </span>
-            </div>
-
-            <div className="flex gap-2 mb-4">
-              {project.sdgs &&
-                project.sdgs.map((sdg) => (
-                  <span
-                    key={sdg}
-                    className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs"
-                  >
-                    SDG {sdg}
-                  </span>
-                ))}
-            </div>
-
-            <div className="mb-4">
-              <p className="text-sm text-gray-600">{project.description}</p>
-            </div>
-
-            {/* Approval Buttons */}
-            <div className="flex gap-4">
-              <button
-                onClick={() => handleAction(project._id, 'Approved')}
-                className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg"
-              >
-                Approve
-              </button>
-              <button
-                onClick={() => handleAction(project._id, 'Rejected')}
-                className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg"
-              >
-                Reject
-              </button>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p className="text-gray-600">No pending projects to display.</p>
-      )}
-    </div>
-  </div>
-)}
+            )}
 
             {activeTab === 'sdgs' && (
               <div className="space-y-6">
@@ -367,6 +411,36 @@ const AdminDashboard = () => {
                       </div>
                       <div className="text-3xl font-bold mb-2">{stat.projects}</div>
                       <div className="text-gray-600">Active Projects</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'collaborations' && (
+              <div className="space-y-6">
+                <h2 className="text-2xl font-bold mb-4">Collaboration Requests</h2>
+                <div className="space-y-4">
+                  {collaborationRequests.map((request) => (
+                    <div key={request._id} className="bg-white p-4 rounded-lg shadow-md">
+                      <h3 className="text-lg font-bold">{request.collaboratorName}</h3>
+                      <p>{request.organization}</p>
+                      <p>{request.description}</p>
+                      <p>Status: {request.status}</p>
+                      <div className="flex gap-4 mt-4">
+                        <button
+                          onClick={() => handleRequestAction(request._id, "Approved")}
+                          className="bg-green-500 text-white px-4 py-2 rounded-lg"
+                        >
+                          Approve
+                        </button>
+                        <button
+                          onClick={() => handleRequestAction(request._id, "Rejected")}
+                          className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                        >
+                          Reject
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
