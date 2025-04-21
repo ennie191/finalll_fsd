@@ -7,7 +7,7 @@ const StudentDashboard = () => {
     title: "",
     description: "",
     department: "",
-    sdg: "",
+    sdgs: [], // Changed name from sdg to sdgs to match backend schema
     academicYear: "",
     mentor: "",
   });
@@ -36,7 +36,14 @@ const StudentDashboard = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewProject({ ...newProject, [name]: value });
+    
+    // Special handling for SDGs field to convert comma-separated string to array
+    if (name === "sdgs") {
+      const sdgsArray = value.split(",").map(item => item.trim()).filter(item => item !== "");
+      setNewProject({ ...newProject, [name]: sdgsArray });
+    } else {
+      setNewProject({ ...newProject, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -62,7 +69,7 @@ const StudentDashboard = () => {
         title: "",
         description: "",
         department: "",
-        sdg: "",
+        sdgs: [], // Reset to empty array with correct field name
         academicYear: "",
         mentor: "",
       });
@@ -121,15 +128,17 @@ const StudentDashboard = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">SDG</label>
+              <label className="block text-gray-700 font-medium mb-2">SDGs (Comma-separated values)</label>
               <input
                 type="text"
-                name="sdg"
-                value={newProject.sdg}
+                name="sdgs"
+                value={newProject.sdgs.join(", ")}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 border rounded-lg"
+                placeholder="e.g. No Poverty, Zero Hunger, Quality Education"
                 required
               />
+              <small className="text-gray-500">Enter SDGs separated by commas</small>
             </div>
             <div className="mb-4">
               <label className="block text-gray-700 font-medium mb-2">Academic Year</label>
@@ -173,7 +182,8 @@ const StudentDashboard = () => {
                   <strong>Department:</strong> {project.department}
                 </p>
                 <p className="text-gray-600">
-                  <strong>SDG:</strong> {project.sdg}
+                  <strong>SDGs:</strong> {Array.isArray(project.sdgs) ? project.sdgs.join(", ") : 
+                    (project.sdg && Array.isArray(project.sdg) ? project.sdg.join(", ") : "None")}
                 </p>
                 <p className="text-gray-600">
                   <strong>Academic Year:</strong> {project.academicYear}

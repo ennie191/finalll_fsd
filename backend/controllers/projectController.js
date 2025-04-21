@@ -26,10 +26,10 @@ exports.getProjectById = async (req, res) => {
 
 exports.createProject = async (req, res) => {
   try {
-    const { title, description, department, sdg, academicYear, mentor } = req.body;
+    const { title, description, department, sdgs, academicYear, mentor } = req.body;
 
-    if (!title || !department || !sdg || !academicYear) {
-      return res.status(400).json({ message: "Title, Department, SDG, and Academic Year are required" });
+    if (!title || !department || !sdgs || !academicYear) {
+      return res.status(400).json({ message: "Title, Department, SDGs, and Academic Year are required" });
     }
 
     // Hardcoded user ID for the owner
@@ -39,11 +39,11 @@ exports.createProject = async (req, res) => {
       title,
       description,
       department,
-      sdg,
+      sdgs, // Changed from sdg to sdgs to match the model
       academicYear,
       mentor,
       owner: hardcodedOwnerId, // Use the hardcoded user ID
-      status: "Pending", // Default status is "Pending"s
+      status: "Pending", // Default status is "Pending"
     });
 
     return res.status(201).json(project);
