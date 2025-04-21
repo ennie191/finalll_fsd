@@ -7,31 +7,29 @@ const SDGProjects = () => {
   const { sdgNumber } = useParams();
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [departmentFilter, setDepartmentFilter] = useState('');
   const [yearFilter, setYearFilter] = useState('');
 
+  // Fetch all projects
   useEffect(() => {
     const fetchProjects = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        // Build the query string for filters
-        const queryParams = new URLSearchParams();
-        if (departmentFilter) queryParams.append('department', departmentFilter);
-        if (yearFilter) queryParams.append('academicYear', yearFilter);
-
-        const response = await fetch(
-          `http://localhost:5000/api/projects/`
-        );
+        const response = await fetch('http://localhost:5000/api/projects/');
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
         const data = await response.json();
-        console.log("SDG PROJECTS PAGE" , data); // Debugging line to check the fetched data
-        setProjects(data);
+        console.log("SDG PROJECTS PAGE", data);
+        
+        // Only keep projects with "active" status
+        const activeProjects = data.filter(project => project.status === "Active");
+        setProjects(activeProjects);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -40,7 +38,57 @@ const SDGProjects = () => {
     };
 
     fetchProjects();
-  }, [sdgNumber, departmentFilter, yearFilter]);
+  }, []);
+
+  // Apply filters whenever filter values or projects change
+  useEffect(() => {
+    if (projects.length === 0) return;
+
+    // Filter projects based on SDG number, department, and academic year
+    const filtered = projects.filter(project => {
+      // Check if project.sdgs is a string or an array
+      const projectSdgs = Array.isArray(project.sdgs) 
+        ? project.sdgs 
+        : project.sdgs ? [project.sdgs] : [];
+      
+      // Check if the project matches the SDG filter
+      const matchesSDG = sdgNumber 
+        ? projectSdgs.includes(sdgNumber) || projectSdgs.includes(Number(sdgNumber))
+        : true;
+      
+      // Check if the project matches the department filter
+      const matchesDepartment = departmentFilter 
+        ? project.department === departmentFilter 
+        : true;
+      
+      // Check if the project matches the academic year filter
+      const matchesYear = yearFilter 
+        ? project.academicYear === yearFilter 
+        : true;
+      
+      return matchesSDG && matchesDepartment && matchesYear;
+    });
+
+    setFilteredProjects(filtered);
+  }, [projects, sdgNumber, departmentFilter, yearFilter]);
+
+  // Handle filter changes
+  const handleDepartmentChange = (e) => {
+    setDepartmentFilter(e.target.value);
+  };
+
+  const handleYearChange = (e) => {
+    setYearFilter(e.target.value);
+  };
+
+  const clearFilters = () => {
+    setDepartmentFilter('');
+    setYearFilter('');
+  };
+
+  // Extract unique departments and years for filter options
+  const departments = ['Computer Science', 'Electronics & Computer Science', 'Artificial Intelligence & Data Science', 'Mechanical']; // Example departments
+  const academicYears = [2025, 2024, 2023, 2022, 2021, 2020].reverse(); // Example years
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -53,6 +101,7 @@ const SDGProjects = () => {
         </button>
 
         <h1 className="text-3xl font-bold mb-2">Projects for SDG {sdgNumber}</h1>
+        <p className="text-gray-400 mb-6">Showing active projects only</p>
 
         {/* Filters */}
         <div className="bg-gray-900 p-4 rounded-lg mb-8 shadow-md">
@@ -61,11 +110,11 @@ const SDGProjects = () => {
               <label className="block text-sm font-medium mb-1 text-gray-300">Department</label>
               <select
                 value={departmentFilter}
-                onChange={(e) => setDepartmentFilter(e.target.value)}
+                onChange={handleDepartmentChange}
                 className="w-full p-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
                 <option value="" className="text-gray-400">All Departments</option>
-                {Array.from(new Set(projects.map((p) => p.department))).map((dept) => (
+                {departments.map((dept) => (
                   <option key={dept} value={dept} className="text-gray-300">{dept}</option>
                 ))}
               </select>
@@ -75,16 +124,28 @@ const SDGProjects = () => {
               <label className="block text-sm font-medium mb-1 text-gray-300">Academic Year</label>
               <select
                 value={yearFilter}
-                onChange={(e) => setYearFilter(e.target.value)}
+                onChange={handleYearChange}
                 className="w-full p-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
                 <option value="" className="text-gray-400">All Years</option>
-                {Array.from(new Set(projects.map((p) => p.academicYear))).map((year) => (
+                {academicYears.map((year) => (
                   <option key={year} value={year} className="text-gray-300">{year}</option>
                 ))}
               </select>
             </div>
           </div>
+          
+          {/* Clear filters button */}
+          {(departmentFilter || yearFilter) && (
+            <div className="mt-3 text-right">
+              <button
+                onClick={clearFilters}
+                className="px-3 py-1 bg-gray-700 hover:bg-gray-600 text-gray-200 rounded-md text-sm"
+              >
+                Clear Filters
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Projects Grid */}
@@ -92,21 +153,18 @@ const SDGProjects = () => {
           <p className="text-center text-gray-500">Loading projects...</p>
         ) : error ? (
           <p className="text-center text-red-500">{error}</p>
-        ) : projects.length > 0 ? (
+        ) : filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project._id || project.id} project={project} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 bg-gray-50 rounded-lg">
-            <p className="text-gray-500">No projects found matching your filters</p>
+          <div className="text-center py-12 bg-gray-800 rounded-lg">
+            <p className="text-gray-300">No active projects found matching your filters</p>
             <button
-              onClick={() => {
-                setDepartmentFilter('');
-                setYearFilter('');
-              }}
-              className="text-blue-600 mt-2"
+              onClick={clearFilters}
+              className="text-blue-400 hover:text-blue-300 mt-2"
             >
               Clear all filters
             </button>
