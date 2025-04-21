@@ -298,28 +298,6 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleRequestAction = async (id, action) => {
-    try {
-      const response = await fetch(`http://localhost:5000/api/collaborations/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: action }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to update request status");
-      }
-      setCollaborationRequests((prev) =>
-        prev.map((request) =>
-          request._id === id ? { ...request, status: action } : request
-        )
-      );
-    } catch (error) {
-      console.error("Error updating request status:", error);
-    }
-  };
-
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
