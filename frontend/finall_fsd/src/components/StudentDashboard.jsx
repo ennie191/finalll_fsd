@@ -42,6 +42,7 @@ const StudentDashboard = () => {
         const userProjects = data.filter(
           (project) => project.owner && project.owner._id === loggedInUserId
         );
+        console.log("User Projects:", userProjects);
         setProjects(userProjects);
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -259,7 +260,7 @@ const StudentDashboard = () => {
                         </div>
                         <div className="detail-item">
                           <span className="detail-label">SDG</span>
-                          <span className="detail-value">{project.sdg}</span>
+                          <span className="detail-value">{project.sdgs.join(",")}</span>
                         </div>
                         <div className="detail-item">
                           <span className="detail-label">Academic Year</span>
