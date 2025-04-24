@@ -1,4 +1,3 @@
-// src/pages/SDGProjects.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProjectCard from '../components/ProjectCard';
@@ -12,6 +11,7 @@ const SDGProjects = () => {
   const [error, setError] = useState(null);
   const [departmentFilter, setDepartmentFilter] = useState('');
   const [yearFilter, setYearFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState(''); // New filter for project status
 
   // Fetch all projects
   useEffect(() => {
@@ -26,10 +26,8 @@ const SDGProjects = () => {
         }
         const data = await response.json();
         console.log("SDG PROJECTS PAGE", data);
-        
-        // Only keep projects with "active" status
-        const activeProjects = data.filter(project => project.status === "Active");
-        setProjects(activeProjects);
+
+        setProjects(data); // Store all projects
       } catch (err) {
         setError(err.message);
       } finally {
@@ -44,33 +42,36 @@ const SDGProjects = () => {
   useEffect(() => {
     if (projects.length === 0) return;
 
-    // Filter projects based on SDG number, department, and academic year
-    const filtered = projects.filter(project => {
+    // Filter projects based on SDG number, department, academic year, and status
+    const filtered = projects.filter((project) => {
       // Check if project.sdgs is a string or an array
-      const projectSdgs = Array.isArray(project.sdgs) 
-        ? project.sdgs 
-        : project.sdgs ? [project.sdgs] : [];
-      
+      const projectSdgs = Array.isArray(project.sdgs)
+        ? project.sdgs
+        : project.sdgs
+        ? [project.sdgs]
+        : [];
+
       // Check if the project matches the SDG filter
-      const matchesSDG = sdgNumber 
+      const matchesSDG = sdgNumber
         ? projectSdgs.includes(sdgNumber) || projectSdgs.includes(Number(sdgNumber))
         : true;
-      
+
       // Check if the project matches the department filter
-      const matchesDepartment = departmentFilter 
-        ? project.department === departmentFilter 
+      const matchesDepartment = departmentFilter
+        ? project.department === departmentFilter
         : true;
-      
+
       // Check if the project matches the academic year filter
-      const matchesYear = yearFilter 
-        ? project.academicYear === yearFilter 
-        : true;
-      
-      return matchesSDG && matchesDepartment && matchesYear;
+      const matchesYear = yearFilter ? project.academicYear === yearFilter : true;
+
+      // Check if the project matches the status filter
+      const matchesStatus = statusFilter ? project.status === statusFilter : true;
+
+      return matchesSDG && matchesDepartment && matchesYear && matchesStatus;
     });
 
     setFilteredProjects(filtered);
-  }, [projects, sdgNumber, departmentFilter, yearFilter]);
+  }, [projects, sdgNumber, departmentFilter, yearFilter, statusFilter]);
 
   // Handle filter changes
   const handleDepartmentChange = (e) => {
@@ -81,14 +82,31 @@ const SDGProjects = () => {
     setYearFilter(e.target.value);
   };
 
+  const handleStatusChange = (e) => {
+    setStatusFilter(e.target.value);
+  };
+
   const clearFilters = () => {
     setDepartmentFilter('');
     setYearFilter('');
+    setStatusFilter('');
   };
 
-  // Extract unique departments and years for filter options
-  const departments = ['Computer Science', 'Electronics & Computer Science', 'Artificial Intelligence & Data Science', 'Mechanical']; // Example departments
+  // Extract unique departments, years, and statuses for filter options
+  const departments = [
+    'Computer Science',
+    'Electronics & Computer Science',
+    'Artificial Intelligence & Data Science',
+    'Mechanical',
+  ]; // Example departments
   const academicYears = [2025, 2024, 2023, 2022, 2021, 2020].reverse(); // Example years
+  const statuses = [
+    'Active',
+    'Prototype Phase',
+    'Completed',
+    'Testing Phase',
+    'Research Phase',
+  ]; // Example statuses
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -105,7 +123,7 @@ const SDGProjects = () => {
 
         {/* Filters */}
         <div className="bg-gray-900 p-4 rounded-lg mb-8 shadow-md">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1 text-gray-300">Department</label>
               <select
@@ -113,9 +131,13 @@ const SDGProjects = () => {
                 onChange={handleDepartmentChange}
                 className="w-full p-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
-                <option value="" className="text-gray-400">All Departments</option>
+                <option value="" className="text-gray-400">
+                  All Departments
+                </option>
                 {departments.map((dept) => (
-                  <option key={dept} value={dept} className="text-gray-300">{dept}</option>
+                  <option key={dept} value={dept} className="text-gray-300">
+                    {dept}
+                  </option>
                 ))}
               </select>
             </div>
@@ -127,16 +149,38 @@ const SDGProjects = () => {
                 onChange={handleYearChange}
                 className="w-full p-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
               >
-                <option value="" className="text-gray-400">All Years</option>
+                <option value="" className="text-gray-400">
+                  All Years
+                </option>
                 {academicYears.map((year) => (
-                  <option key={year} value={year} className="text-gray-300">{year}</option>
+                  <option key={year} value={year} className="text-gray-300">
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1 text-gray-300">Status</label>
+              <select
+                value={statusFilter}
+                onChange={handleStatusChange}
+                className="w-full p-2 border border-gray-700 rounded-md bg-gray-800 text-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              >
+                <option value="" className="text-gray-400">
+                  All Status
+                </option>
+                {statuses.map((status) => (
+                  <option key={status} value={status} className="text-gray-300">
+                    {status}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
-          
+
           {/* Clear filters button */}
-          {(departmentFilter || yearFilter) && (
+          {(departmentFilter || yearFilter || statusFilter) && (
             <div className="mt-3 text-right">
               <button
                 onClick={clearFilters}
