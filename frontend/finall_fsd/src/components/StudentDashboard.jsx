@@ -23,6 +23,46 @@ const [selectedProject, setSelectedProject] = useState('');
 const [mentorshipRequests, setMentorshipRequests] = useState([]);
 const [loading, setLoading] = useState(false);
 const MENTOR_ID = "6800e357fb69aeea30cb3ae2";
+const [collaborationRequests, setCollaborationRequests] = useState([]);
+const COLLABORATOR_ID = "6800e357fb69aeea30cb3ae4";
+
+// Add useEffect to fetch collaboration requests
+useEffect(() => {
+  const fetchCollaborationRequests = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/collaboration/requests');
+      const data = await response.json();
+      setCollaborationRequests(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  fetchCollaborationRequests();
+}, []);
+
+// Add handler for collaboration requests
+const handleCollaborationRequest = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch('http://localhost:5000/api/collaboration/request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        projectId: selectedProject,
+        message: e.target.message.value
+      })
+    });
+
+    if (!response.ok) throw new Error('Failed to send request');
+    
+    alert('Collaboration request sent successfully!');
+    setSelectedProject('');
+    e.target.reset();
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Failed to send request');
+  }
+};
 // Add useEffect to fetch projects
 useEffect(() => {
   const fetchMentors = async () => {
@@ -526,6 +566,65 @@ useEffect(() => {
       </div>
     </div>
   );
+  case "collaboration":
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-cyan-300">Request Collaboration</h2>
+      
+      <form onSubmit={handleCollaborationRequest} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-cyan-200 mb-2">Select Project</label>
+          <select
+            value={selectedProject}
+            onChange={(e) => setSelectedProject(e.target.value)}
+            className="w-full bg-blue-900 p-2 rounded-lg"
+            required
+          >
+            <option value="">Choose a project...</option>
+            {projects.map(project => (
+              <option key={project._id} value={project._id}>
+                {project.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-cyan-200 mb-2">Message</label>
+          <textarea
+            name="message"
+            className="w-full bg-blue-900 p-2 rounded-lg"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" className="bg-cyan-600 text-white px-4 py-2 rounded-lg">
+          Send Request
+        </button>
+      </form>
+
+      {/* Show My Requests */}
+      <div className="mt-8">
+        <h3 className="text-xl font-bold text-cyan-300 mb-4">My Collaboration Requests</h3>
+        <div className="grid gap-4">
+          {collaborationRequests.map(request => (
+            <div key={request._id} className="bg-blue-900 p-4 rounded-lg">
+              <h4 className="font-semibold text-cyan-200">{request.projectTitle}</h4>
+              <p className="text-sm text-cyan-300 mt-2">Message: {request.message}</p>
+              <span className={`inline-block mt-2 px-2 py-1 rounded-full text-sm ${
+                request.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-300' :
+                request.status === 'Approved' ? 'bg-green-500/20 text-green-300' :
+                'bg-red-500/20 text-red-300'
+              }`}>
+                {request.status}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
       
       default:
         return (
@@ -598,6 +697,18 @@ useEffect(() => {
             <span>Request Mentorship</span>
           </button>
         </div>
+
+        <button 
+            className={`sidebar-item ${activeSection === 'collaboration' ? 'active' : ''}`} 
+            onClick={() => {
+              setActiveSection('collaboration');
+              if (window.innerWidth < 768) setSidebarOpen(false);
+            }}
+          >
+            <FaHandshake className="sidebar-icon" />
+            <span>Request Collaboration</span>
+          </button>
+        </div>
         
         <div className="sidebar-footer">
           <button 
@@ -611,7 +722,6 @@ useEffect(() => {
             <FaPlus className="button-icon" /> New Project
           </button>
         </div>
-      </div>
       
       {/* Main Content */}
       <div className={`main-content ${sidebarOpen ? 'sidebar-open' : ''}`}>
@@ -623,6 +733,7 @@ useEffect(() => {
               {activeSection === 'uploads' && 'Document Uploads'}
               {activeSection === 'feedback' && 'Mentor Feedback'}
               {activeSection === 'mentorship' && 'Request Mentorship'}
+              {activeSection === 'collaboration' && 'Request collaborators'}
             </h1>
             {activeSection === 'dashboard' && (
               <button

@@ -26,6 +26,18 @@ const projectSchema = new mongoose.Schema({
       default: 'Pending'
     },
     createdAt: { type: Date, default: Date.now }
+  }],
+  // For collaboration requests
+  collaborationRequests: [{
+    studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    collaboratorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    message: String,
+    status: {
+      type: String,
+      enum: ['Pending', 'Approved', 'Rejected'],
+      default: 'Pending'
+    },
+    createdAt: { type: Date, default: Date.now }
   }]
 });
 

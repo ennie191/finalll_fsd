@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 // Register routes
 app.use("/api/auth", authRoutes); // Authentication routes
 app.use("/api/projects", projectRoutes); // Project routes
-app.use("/api/collaborations", collaborationRoutes); // Collaboration routes
+app.use("/api/collaboration", collaborationRoutes); // Collaboration routes
 app.use("/api/stats", statsRoutes); // Statistics routes
 app.use("/api/admin", adminRoutes); // Admin routes
 app.use("/api/mentorship", mentorshipRoutes); // Mentorship routes

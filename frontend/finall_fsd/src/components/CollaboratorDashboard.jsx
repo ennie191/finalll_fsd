@@ -1,34 +1,66 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { FaUserFriends, FaProjectDiagram, FaBell, FaChartLine, FaCheckCircle, FaTimesCircle, FaUser, FaEdit, FaCertificate, FaLinkedin, FaGithub } from "react-icons/fa";
 
 const CollaboratorDashboard = () => {
   const [activeTab, setActiveTab] = useState("profile");
 
   // Mock data for collaboration requests
-  const [collaborationRequests, setCollaborationRequests] = useState([
-    {
-      id: 1,
-      studentName: "John Doe",
-      projectTitle: "AI Healthcare Solution",
-      department: "Artificial Intelligence & Data Science",
-      sdgs: [3, 9],
-      description: "Need expertise in healthcare data analysis and machine learning",
-      skills: ["Python", "Machine Learning", "Healthcare Analytics"],
-      status: "pending",
-      dateRequested: "2024-03-15"
-    },
-    {
-      id: 2,
-      studentName: "Jane Smith",
-      projectTitle: "Smart Agriculture System",
-      department: "Electronics & Computer Science",
-      sdgs: [2, 13],
-      description: "Looking for IoT and data analysis expertise",
-      skills: ["IoT", "Data Analysis", "Sensor Networks"],
-      status: "pending",
-      dateRequested: "2024-03-16"
+  const [collaborationRequests, setCollaborationRequests] = useState([]);
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState(null);
+const COLLABORATOR_ID = "6800e357fb69aeea30cb3ae4";
+
+// Add useEffect to fetch collaboration requests
+useEffect(() => {
+  const fetchCollaborationRequests = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/collaboration/requests');
+      const data = await response.json();
+      console.log('Collaboration Requests:', data);
+      // Filter requests for this collaborator
+      // const collaboratorRequests = data.filter(req => req.collaboratorId === COLLABORATOR_ID);
+      setCollaborationRequests(data);
+    } catch (err) {
+      console.error('Error fetching requests:', err);
+      setError('Failed to fetch collaboration requests');
+    } finally {
+      setLoading(false);
     }
-  ]);
+  };
+
+  fetchCollaborationRequests();
+}, []);
+
+// Update request handler
+const handleRequestAction = async (projectId, studentId, status) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/collaboration/update/${projectId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        collaboratorId: COLLABORATOR_ID,
+        studentId,
+        status
+      })
+    });
+
+    if (!response.ok) throw new Error('Failed to update request');
+
+    // Update local state
+    setCollaborationRequests(prev =>
+      prev.map(req =>
+        req.projectId === projectId && req.studentId === studentId
+          ? { ...req, status }
+          : req
+      )
+    );
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
 
   // Mock data for active collaborations
   const [activeCollaborations, setActiveCollaborations] = useState([
@@ -112,15 +144,6 @@ const CollaboratorDashboard = () => {
     bio: "Experienced researcher and collaborator with over 8 years of experience in guiding student projects. Specialized in machine learning applications and data science solutions for sustainable development."
   });
 
-  const handleRequestAction = (requestId, action) => {
-    setCollaborationRequests(prev =>
-      prev.map(request =>
-        request.id === requestId
-          ? { ...request, status: action }
-          : request
-      )
-    );
-  };
 
   const TabButton = ({ name, icon, label }) => (
     <button
@@ -139,68 +162,67 @@ const CollaboratorDashboard = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "requests":
-        return (
-          <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-cyan-400 mb-6 drop-shadow-lg shadow-cyan-500/50">Collaboration Requests</h2>
-            <div className="grid gap-8">
-              {collaborationRequests.map((request) => (
-                <div key={request.id} className="bg-gray-800 rounded-2xl p-6 shadow-[5px_5px_15px_rgba(9,9,32,0.8),-5px_-5px_15px_rgba(40,60,100,0.15)] border-t border-l border-gray-700">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-xl font-semibold text-cyan-300">{request.projectTitle}</h3>
-                      <p className="text-gray-400 mt-1">Student: {request.studentName}</p>
-                      <p className="text-gray-400">Department: {request.department}</p>
-                      
-                      <div className="flex gap-2 mt-3">
-                        {request.sdgs.map((sdg) => (
-                          <span key={sdg} className="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm shadow-inner shadow-cyan-800/50">
-                            SDG {sdg}
-                          </span>
-                        ))}
-                      </div>
-
-                      <p className="mt-4 text-gray-300">{request.description}</p>
-
-                      <div className="mt-3">
-                        <p className="text-sm font-semibold text-gray-300">Required Skills:</p>
-                        <div className="flex flex-wrap gap-2 mt-1">
-                          {request.skills.map((skill, index) => (
-                            <span key={index} className="bg-gray-700 text-cyan-300 px-3 py-1 rounded-full text-sm">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-end">
-                      <span className="text-sm text-gray-400">
-                        Requested on: {request.dateRequested}
-                      </span>
-                      {request.status === 'pending' && (
-                        <div className="flex gap-3 mt-4">
-                          <button
-                            onClick={() => handleRequestAction(request.id, 'accepted')}
-                            className="flex items-center gap-1 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-500 shadow-lg shadow-emerald-700/30 transition-all"
-                          >
-                            <FaCheckCircle className="w-4 h-4" />
-                            Accept
-                          </button>
-                          <button
-                            onClick={() => handleRequestAction(request.id, 'rejected')}
-                            className="flex items-center gap-1 bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-500 shadow-lg shadow-rose-700/30 transition-all"
-                          >
-                            <FaTimesCircle className="w-4 h-4" />
-                            Reject
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
+  return (
+    <div className="space-y-6">
+      <h2 className="text-3xl font-bold text-cyan-400 mb-6 drop-shadow-lg shadow-cyan-500/50">
+        Collaboration Requests
+      </h2>
+      
+      {loading ? (
+        <div className="text-center text-cyan-300">Loading requests...</div>
+      ) : error ? (
+        <div className="text-center text-red-400">{error}</div>
+      ) : collaborationRequests.length === 0 ? (
+        <div className="text-center text-cyan-300">No collaboration requests found</div>
+      ) : (
+        <div className="grid gap-8">
+          {collaborationRequests.map((request) => (
+            <div key={request._id} className="bg-gray-800 rounded-2xl p-6 shadow-[5px_5px_15px_rgba(9,9,32,0.8),-5px_-5px_15px_rgba(40,60,100,0.15)] border-t border-l border-gray-700">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h3 className="text-xl font-semibold text-cyan-300">{request.projectTitle}</h3>
+                  <p className="text-gray-400">Student: {request.studentName}</p>
+                  <p className="text-gray-400">Department: {request.department}</p>
+                  <p className="mt-4 text-gray-300">{request.message}</p>
                 </div>
-              ))}
+                <div className="text-right">
+                  <span className={`px-3 py-1 rounded-full text-sm ${
+                    request.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-300' :
+                    request.status === 'Approved' ? 'bg-green-500/20 text-green-300' :
+                    'bg-red-500/20 text-red-300'
+                  }`}>
+                    {request.status}
+                  </span>
+                  <p className="text-sm text-gray-400 mt-2">
+                    Requested: {new Date(request.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
+              </div>
+
+              {request.status === 'Pending' && (
+                <div className="flex gap-3 mt-4">
+                  <button
+                    onClick={() => handleRequestAction(request.projectId, request.studentId, 'Approved')}
+                    className="flex items-center gap-1 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-500 shadow-lg shadow-emerald-700/30 transition-all"
+                  >
+                    <FaCheckCircle className="w-4 h-4" />
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => handleRequestAction(request.projectId, request.studentId, 'Rejected')}
+                    className="flex items-center gap-1 bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-500 shadow-lg shadow-rose-700/30 transition-all"
+                  >
+                    <FaTimesCircle className="w-4 h-4" />
+                    Reject
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
-        );
+          ))}
+        </div>
+      )}
+    </div>
+  );
 
       case "activeCollaborations":
         return (
