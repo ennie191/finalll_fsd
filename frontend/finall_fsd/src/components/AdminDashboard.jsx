@@ -197,19 +197,20 @@ const handleMentorshipAction = async (projectId, mentorId, status) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        projectId,
         mentorId,
         status,
       }),
     });
 
+    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error('Failed to update mentorship status');
+      throw new Error(data.message || 'Failed to update status');
     }
 
     // Update local state
-    setMentorRequests(prevRequests =>
-      prevRequests.map(request =>
+    setMentorRequests(prev =>
+      prev.map(request =>
         request.projectId === projectId && request.mentorId === mentorId
           ? { ...request, status }
           : request
@@ -222,12 +223,13 @@ const handleMentorshipAction = async (projectId, mentorId, status) => {
       text: `Mentorship request ${status.toLowerCase()} successfully`
     });
 
-  } catch (err) {
-    setError(`Failed to ${status.toLowerCase()} mentorship request`);
+  } catch (error) {
+    console.error('Error:', error);
+    setError(error.message || `Failed to ${status.toLowerCase()} request`);
   } finally {
     setIsLoading(false);
   }
-}; 
+};
 // Add this useEffect
 useEffect(() => {
   const fetchMentorRequests = async () => {

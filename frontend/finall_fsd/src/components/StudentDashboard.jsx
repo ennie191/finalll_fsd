@@ -16,6 +16,94 @@ import {
 import "./StudentDashboard.css";
 
 const StudentDashboard = () => {
+  const [mentors, setMentors] = useState([]);
+const [selectedMentor, setSelectedMentor] = useState('');
+const [myMentorshipRequests, setMyMentorshipRequests] = useState([]);
+const [selectedProject, setSelectedProject] = useState('');
+const [mentorshipRequests, setMentorshipRequests] = useState([]);
+const [loading, setLoading] = useState(false);
+const MENTOR_ID = "6800e357fb69aeea30cb3ae2";
+// Add useEffect to fetch projects
+useEffect(() => {
+  const fetchMentors = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/mentors');
+      const data = await response.json();
+      setMentors(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  fetchMentors();
+}, []);
+
+// Add fetch for student's mentorship requests
+useEffect(() => {
+  const fetchMyRequests = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/mentorship/student-requests');
+      const data = await response.json();
+      const myRequests = data.filter(req => req.studentId === STUDENT_ID);
+      console.log("My Mentorship Requests:", myRequests);
+      setMyMentorshipRequests(myRequests);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  fetchMyRequests();
+}, []);
+
+// Add request handler
+// Add constants at top
+
+// Update handleMentorshipRequest function
+const handleMentorshipRequest = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    const response = await fetch('http://localhost:5000/api/mentorship/student-request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        projectId: selectedProject,
+        mentorId: MENTOR_ID,
+        message: e.target.message.value
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+
+    alert('Mentorship request sent successfully!');
+    setSelectedProject('');
+    e.target.reset();
+    
+    // Refresh requests list
+    fetchMentorshipRequests();
+  } catch (error) {
+    console.error('Error:', error);
+    alert(error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+// Add fetch function for requests
+const fetchMentorshipRequests = async () => {
+  try {
+    const response = await fetch('http://localhost:5000/api/mentorship/student-requests');
+    const data = await response.json();
+    setMentorshipRequests(data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Rest of your existing code remains the same
+
   const [projects, setProjects] = useState([]);
   const [newProject, setNewProject] = useState({
     title: "",
@@ -33,7 +121,40 @@ const StudentDashboard = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const loggedInUserId = "6800e357fb69aeea30cb3ae3"; // Replace with dynamic value if needed
+  useEffect(() => {
+    const fetchMentors = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/mentors');
+        const data = await response.json();
+        setMentors(data);
+      } catch (error) {
+        console.error('Error fetching mentors:', error);
+      }
+    };
+    fetchMentors();
+  }, []);
+  const STUDENT_ID = "6800e357fb69aeea30cb3ae3";
 
+// Add after existing useEffect
+useEffect(() => {
+  const fetchStudentMentorshipRequests = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/mentorship/requests');
+      const data = await response.json();
+      console.log("Mentorship Requests:", data);
+      // Filter requests for this student
+      const studentRequests = data.filter(
+        request => request.studentId === STUDENT_ID
+      );
+      setMentorshipRequests(studentRequests);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  fetchStudentMentorshipRequests();
+}, []);
+  
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -341,65 +462,70 @@ const StudentDashboard = () => {
           </div>
         );
       
-      case "mentorship":
-        return (
-          <div className="mentorship-section">
-            <div className="section-header">
-              <FaHandshake className="section-icon" />
-              <h2 className="glow-text">Request Mentorship</h2>
+        case "mentorship":
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-cyan-300">Request Mentorship</h2>
+      
+      <form onSubmit={handleMentorshipRequest} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-cyan-200 mb-2">Select Project</label>
+          <select
+            value={selectedProject}
+            onChange={(e) => setSelectedProject(e.target.value)}
+            className="w-full bg-blue-900 p-2 rounded-lg"
+            required
+          >
+            <option value="">Choose a project...</option>
+            {projects.map(project => (
+              <option key={project._id} value={project._id}>
+                {project.title}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-cyan-200 mb-2">Message</label>
+          <textarea
+            name="message"
+            className="w-full bg-blue-900 p-2 rounded-lg"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <button 
+          type="submit" 
+          className="bg-cyan-600 text-white px-4 py-2 rounded-lg"
+          disabled={loading}
+        >
+          {loading ? 'Sending...' : 'Request Mentorship'}
+        </button>
+      </form>
+
+      <div className="mt-8">
+        <h3 className="text-xl font-bold text-cyan-300 mb-4">My Mentorship Requests</h3>
+        <div className="grid gap-4">
+          {myMentorshipRequests.map(request => (
+            <div key={request._id} className="bg-blue-900 p-4 rounded-xl border border-blue-700">
+              <h4 className="font-semibold text-cyan-200">{request.projectTitle}</h4>
+              <p className="text-sm text-cyan-300">Message: {request.message}</p>
+              <div className="mt-2">
+                <span className={`px-2 py-1 rounded-full text-sm ${
+                  request.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-300' :
+                  request.status === 'Approved' ? 'bg-green-500/20 text-green-300' :
+                  'bg-red-500/20 text-red-300'
+                }`}>
+                  {request.status}
+                </span>
+              </div>
             </div>
-            
-            <div className="mentorship-container">
-              <form className="neuro-form">
-                <div className="form-group">
-                  <label>Mentorship Type</label>
-                  <select className="neuro-input">
-                    <option value="">Select Mentorship Type</option>
-                    <option value="industry">Industry Expert</option>
-                    <option value="ngo">NGO Representative</option>
-                    <option value="academic">Academic Mentor</option>
-                  </select>
-                </div>
-                
-                <div className="form-group">
-                  <label>Project</label>
-                  <select className="neuro-input">
-                    <option value="">Select Project</option>
-                    {projects.map(project => (
-                      <option key={project._id} value={project._id}>{project.title}</option>
-                    ))}
-                  </select>
-                </div>
-                
-                <div className="form-group">
-                  <label>Message</label>
-                  <textarea 
-                    className="neuro-input" 
-                    rows="4" 
-                    placeholder="Describe why you're seeking mentorship and what you hope to gain..."
-                  ></textarea>
-                </div>
-                
-                <div className="form-group">
-                  <label>Preferred Expertise Areas</label>
-                  <select className="neuro-input" multiple>
-                    <option value="ai">Artificial Intelligence</option>
-                    <option value="sustainability">Sustainability</option>
-                    <option value="healthcare">Healthcare</option>
-                    <option value="education">Education</option>
-                    <option value="engineering">Engineering</option>
-                    <option value="business">Business Development</option>
-                  </select>
-                  <small className="text-hint">Hold Ctrl/Cmd to select multiple options</small>
-                </div>
-                
-                <button type="submit" className="neuro-button submit-button">
-                  Request Mentorship
-                </button>
-              </form>
-            </div>
-          </div>
-        );
+          ))}
+        </div>
+      </div>
+    </div>
+  );
       
       default:
         return (

@@ -10,6 +10,192 @@ const MentorDashboard = () => {
   const mentorId = "6800e357fb69aeea30cb3ae2"; // Hardcoded mentor ID
   const [myRequests, setMyRequests] = useState([]);
 const [requestsLoading, setRequestsLoading] = useState(false);
+const [studentProjectRequests, setStudentProjectRequests] = useState([]);
+
+// Update the useEffect to fetch student requests
+useEffect(() => {
+  const fetchStudentRequests = async () => {
+    setRequestsLoading(true);
+    try {
+      // Use the student-requests endpoint to get requests from students
+      const response = await fetch('http://localhost:5000/api/mentorship/student-requests');
+      const data = await response.json();
+      console.log('All Student Requests:', data);
+      // console.log('Requests for this mentor:', mentorRequests);
+
+      setStudentProjectRequests(data);
+    } catch (error) {
+      console.error('Error fetching student requests:', error);
+      setError('Failed to fetch student requests');
+    } finally {
+      setRequestsLoading(false);
+    }
+  };
+
+  fetchStudentRequests();
+}, []);
+
+// Add handler for student requests
+const handleStudentRequest = async (projectId, studentId, status) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/mentorship/student-update/${projectId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        studentId,
+        mentorId: MENTOR_ID,
+        status 
+      })
+    });
+
+    if (!response.ok) throw new Error('Failed to update request');
+
+    // Update local state
+    setStudentProjectRequests(prev =>
+      prev.map(req =>
+        req.projectId === projectId && req.studentId === studentId
+          ? { ...req, status }
+          : req
+      )
+    );
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+// Add this state
+const [mentorshipRequests, setMentorshipRequests] = useState([]);
+const MENTOR_ID = "6800e357fb69aeea30cb3ae2";
+
+// Add state for both types of requests
+const [studentRequests, setStudentRequests] = useState([]);
+const [projectRequests, setProjectRequests] = useState([]);
+useEffect(() => {
+  const fetchStudentRequests = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/mentorship/student-requests');
+      const data = await response.json();
+      const forMentor = data.filter(req => req.mentorId === MENTOR_ID);
+      setStudentRequests(forMentor);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  fetchStudentRequests();
+}, []);
+
+
+// Add useEffect to fetch project requests
+useEffect(() => {
+  const fetchProjectRequests = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/mentorship/requests');
+      const data = await response.json();
+      const mentorRequests = data.filter(req => req.mentorId === MENTOR_ID);
+      setProjectRequests(mentorRequests);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  fetchProjectRequests();
+}, []);
+
+// Add handler for project requests
+const handleProjectRequest = async (projectId, status) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/mentorship/update/${projectId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        mentorId: MENTOR_ID,
+        status
+      })
+    });
+
+    if (!response.ok) throw new Error('Failed to update request');
+
+    setProjectRequests(prev =>
+      prev.map(req =>
+        req.projectId === projectId ? { ...req, status } : req
+      )
+    );
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Add after existing useEffect
+useEffect(() => {
+  const fetchMentorRequests = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/mentorship/requests');
+      const data = await response.json();
+      // Filter requests for this mentor
+      const mentorRequests = data.filter(
+        request => request.mentorId === MENTOR_ID
+      );
+      setMentorshipRequests(mentorRequests);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  fetchMentorRequests();
+}, []);
+
+// Update handleMentorshipAction
+const handleMentorshipAction = async (projectId, status) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/mentorship/update/${projectId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        mentorId: MENTOR_ID,
+        status
+      }),
+    });
+
+    if (!response.ok) throw new Error('Failed to update request');
+
+    setMentorshipRequests(prev =>
+      prev.map(req =>
+        req.projectId === projectId ? { ...req, status } : req
+      )
+    );
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Add function to handle request response
+const handleMentorshipResponse = async (requestId, status) => {
+  try {
+    const response = await fetch(`http://localhost:5000/api/mentorship/update/${requestId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update request');
+    }
+
+    // Update local state
+    setMentorshipRequests(prev =>
+      prev.map(req =>
+        req._id === requestId ? { ...req, status } : req
+      )
+    );
+
+    alert(`Request ${status.toLowerCase()} successfully`);
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Failed to update request');
+  }
+};
 
 // Add this useEffect after other useEffect
 useEffect(() => {
@@ -308,7 +494,53 @@ useEffect(() => {
   </div>
 </div>
 
+<div className="mb-8">
+  <h2 className="text-2xl font-bold text-cyan-300 mb-4">Student Project Requests</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {studentProjectRequests.length === 0 ? (
+      <div className="text-cyan-300">No project requests from students</div>
+    ) : (
+      studentProjectRequests.map(request => (
+        <div key={request._id} className="bg-blue-900 p-6 rounded-xl border border-blue-700">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-lg font-semibold text-cyan-200">
+                {request.projectTitle}
+              </h3>
+              <p className="text-cyan-300">Student: {request.studentName}</p>
+              <p className="text-sm text-cyan-300 mt-2">Message: {request.message}</p>
+            </div>
+            <span className={`px-2 py-1 rounded-full text-sm ${
+              request.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-300' :
+              request.status === 'Approved' ? 'bg-green-500/20 text-green-300' :
+              'bg-red-500/20 text-red-300'
+            }`}>
+              {request.status}
+            </span>
+          </div>
 
+          {request.status === 'Pending' && (
+            <div className="flex gap-4 mt-4">
+              <button
+                onClick={() => handleStudentRequest(request.projectId, request.studentId, 'Approved')}
+                className="bg-green-500/20 hover:bg-green-500/30 text-green-300 px-4 py-2 rounded-lg flex-1 transition-colors"
+              >
+                Accept
+              </button>
+              <button
+                onClick={() => handleStudentRequest(request.projectId, request.studentId, 'Rejected')}
+                className="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-lg flex-1 transition-colors"
+              >
+                Reject
+              </button>
+            </div>
+          )}
+        </div>
+      ))
+    )}
+  </div>
+</div>
+  
 
         {/* Office Hours */}
         <div>
