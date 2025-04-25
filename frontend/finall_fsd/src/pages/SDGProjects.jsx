@@ -99,9 +99,10 @@ const SDGProjects = () => {
     'Artificial Intelligence & Data Science',
     'Mechanical',
   ]; // Example departments
-  const academicYears = [2025, 2024, 2023, 2022, 2021, 2020].reverse(); // Example years
+  const academicYears = ['2025-2026','2024-2025', '2023-2024', '2022-2023', '2021-2022', '2020-2021'].reverse(); // Example years
   const statuses = [
     'Active',
+    'Approved',
     'Prototype Phase',
     'Completed',
     'Testing Phase',

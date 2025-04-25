@@ -11,6 +11,12 @@ const projectSchema = new mongoose.Schema({
   mentors: { type: [String] }, // Array of strings
   academicYear: { type: String },
   status: { type: String, default: "Pending" }, // Default status is "Pending"
+  mentorshipRequests: [
+    {
+      mentorId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+      status: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
+    },
+  ],
 });
 
 module.exports = mongoose.model("Project", projectSchema);

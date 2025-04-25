@@ -7,6 +7,7 @@ const projectRoutes = require("./routes/projectRoutes"); // Import project route
 const collaborationRoutes = require("./routes/collaborationRoutes"); // Import collaboration routes
 const statsRoutes = require("./routes/statsRoutes"); // Import stats routes
 const adminRoutes = require("./routes/adminRoutes"); // Import admin routes
+const mentorshipRoutes = require("./routes/mentorshipRoutes"); // Import mentorship routes
 // Initialize the app
 const app = express();
 
@@ -48,6 +49,7 @@ app.use("/api/projects", projectRoutes); // Project routes
 app.use("/api/collaborations", collaborationRoutes); // Collaboration routes
 app.use("/api/stats", statsRoutes); // Statistics routes
 app.use("/api/admin", adminRoutes); // Admin routes
+app.use("/api/mentorship", mentorshipRoutes); // Mentorship routes
 
 // Start the server
 const PORT = process.env.PORT || 5000;

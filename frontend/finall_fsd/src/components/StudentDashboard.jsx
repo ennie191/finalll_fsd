@@ -163,7 +163,7 @@ const StudentDashboard = () => {
                       required
                     >
                       <option value="">Select Department</option>
-                      <option value="Computer Engineering">Computer Engineering</option>
+                      <option value="Computer Science">Computer Science</option>
                       <option value="AI & DS">AI & DS</option>
                       <option value="Mechanical Engineering">Mechanical Engineering</option>
                       <option value="Electronics and Computer Science">Electronics and Computer Science</option>
@@ -180,23 +180,23 @@ const StudentDashboard = () => {
                       required
                     >
                       <option value="">Select SDG</option>
-                      <option value="SDG 1 - No Poverty">SDG 1 - No Poverty</option>
-                      <option value="SDG 2 - Zero Hunger">SDG 2 - Zero Hunger</option>
-                      <option value="SDG 3 - Good Health and Well-being">SDG 3 - Good Health and Well-being</option>
-                      <option value="SDG 4 - Quality Education">SDG 4 - Quality Education</option>
-                      <option value="SDG 5 - Gender Equality">SDG 5 - Gender Equality</option>
-                      <option value="SDG 6 - Clean Water and Sanitation">SDG 6 - Clean Water and Sanitation</option>
-                      <option value="SDG 7 - Affordable and Clean Energy">SDG 7 - Affordable and Clean Energy</option>
-                      <option value="SDG 8 - Decent Work and Economic Growth">SDG 8 - Decent Work and Economic Growth</option>
-                      <option value="SDG 9 - Industry, Innovation and Infrastructure">SDG 9 - Industry, Innovation and Infrastructure</option>
-                      <option value="SDG 10 - Reduced Inequality">SDG 10 - Reduced Inequality</option>
-                      <option value="SDG 11 - Sustainable Cities and Communities">SDG 11 - Sustainable Cities and Communities</option>
-                      <option value="SDG 12 - Responsible Consumption and Production">SDG 12 - Responsible Consumption and Production</option>
-                      <option value="SDG 13 - Climate Action">SDG 13 - Climate Action</option>
-                      <option value="SDG 14 - Life Below Water">SDG 14 - Life Below Water</option>
-                      <option value="SDG 15 - Life on Land">SDG 15 - Life on Land</option>
-                      <option value="SDG 16 - Peace, Justice and Strong Institutions">SDG 16 - Peace, Justice and Strong Institutions</option>
-                      <option value="SDG 17 - Partnerships for the Goals">SDG 17 - Partnerships for the Goals</option>  
+                      <option value="1">SDG 1 - No Poverty</option>
+                      <option value="2">SDG 2 - Zero Hunger</option>
+                      <option value="3">SDG 3 - Good Health and Well-being</option>
+                      <option value="4">SDG 4 - Quality Education</option>
+                      <option value="5">SDG 5 - Gender Equality</option>
+                      <option value="6">SDG 6 - Clean Water and Sanitation</option>
+                      <option value="7">SDG 7 - Affordable and Clean Energy</option>
+                      <option value="8">SDG 8 - Decent Work and Economic Growth</option>
+                      <option value="9">SDG 9 - Industry, Innovation and Infrastructure</option>
+                      <option value="10">SDG 10 - Reduced Inequality</option>
+                      <option value="11">SDG 11 - Sustainable Cities and Communities</option>
+                      <option value="12">SDG 12 - Responsible Consumption and Production</option>
+                      <option value="13">SDG 13 - Climate Action</option>
+                      <option value="14">SDG 14 - Life Below Water</option>
+                      <option value="15">SDG 15 - Life on Land</option>
+                      <option value="16">SDG 16 - Peace, Justice and Strong Institutions</option>
+                      <option value="17">SDG 17 - Partnerships for the Goals</option>  
                     </select>
                   </div>
                 </div>

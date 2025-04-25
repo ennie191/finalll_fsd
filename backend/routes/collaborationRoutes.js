@@ -1,6 +1,6 @@
 const express = require("express");
 const { createCollaborationRequest } = require("../controllers/collaborationController");
-
+const CollaborationRequest = require("../models/CollaborationRequest");
 const router = express.Router();
 
 // Route to create a collaboration request

@@ -184,25 +184,86 @@ const neuromorphicStyles = `
 `;
 
 const AdminDashboard = () => {
+  const [mentorRequests, setMentorRequests] = useState([]);
+const [isLoading, setIsLoading] = useState(false);
+const [error, setError] = useState(null);
+// Add this function inside AdminDashboard component
+const handleMentorshipAction = async (projectId, mentorId, status) => {
+  setIsLoading(true);
+  try {
+    const response = await fetch(`http://localhost:5000/api/mentorship/update/${projectId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        projectId,
+        mentorId,
+        status,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update mentorship status');
+    }
+
+    // Update local state
+    setMentorRequests(prevRequests =>
+      prevRequests.map(request =>
+        request.projectId === projectId && request.mentorId === mentorId
+          ? { ...request, status }
+          : request
+      )
+    );
+
+    // Show success message
+    setMessage({
+      type: 'success',
+      text: `Mentorship request ${status.toLowerCase()} successfully`
+    });
+
+  } catch (err) {
+    setError(`Failed to ${status.toLowerCase()} mentorship request`);
+  } finally {
+    setIsLoading(false);
+  }
+}; 
+// Add this useEffect
+useEffect(() => {
+  const fetchMentorRequests = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:5000/api/mentorship/requests");
+      const data = await response.json();
+      setMentorRequests(data);
+    } catch (err) {
+      setError("Failed to fetch mentor requests");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchMentorRequests();
+}, []);
   const [sdgStats, setSdgStats] = useState([
-    { id: 1, sdg: 1, projects: 5, impact: "High" },
-    { id: 2, sdg: 2, projects: 3, impact: "Medium" },
-    { id: 3, sdg: 3, projects: 4, impact: "High" },
-    { id: 4, sdg: 4, projects: 2, impact: "Low" },
+    { key: 1, sdg: 1, projects: 5, impact: "High" },
+    { key: 2, sdg: 2, projects: 3, impact: "Medium" },
+    { key: 3, sdg: 3, projects: 4, impact: "High" },
+    { key: 4, sdg: 4, projects: 2, impact: "Low" },
   ]);
   const [message, setMessage] = useState(null);
   const [users, setUsers] = useState({
     students: [
-      { id: 1, name: "John Doe", department: "Computer Science", projects: 2, status: "active" },
-      { id: 2, name: "Jane Smith", department: "Environmental Science", projects: 1, status: "active" }
+      { key: 1, name: "John Doe", department: "Computer Science", projects: 2, status: "active" },
+      { key: 2, name: "Jane Smith", department: "Environmental Science", projects: 1, status: "active" }
     ],
     mentors: [
-      { id: 1, name: "Dr. Sarah Wilson", department: "Computer Science", mentees: 5, status: "active" },
-      { id: 2, name: "Prof. Michael Brown", department: "Environmental Science", mentees: 3, status: "active" }
+      { key: 1, name: "Dr. Sarah Wilson", department: "Computer Science", mentees: 5, status: "active" },
+      { key: 2, name: "Prof. Michael Brown", department: "Environmental Science", mentees: 3, status: "active" }
     ],
     collaborators: [
-      { id: 1, name: "Tech Solutions Inc.", type: "Industry", projects: 3, status: "active" },
-      { id: 2, name: "Green Earth NGO", type: "NGO", projects: 2, status: "active" }
+      { key: 1, name: "Tech Solutions Inc.", type: "Industry", projects: 3, status: "active" },
+      { key: 2, name: "Green Earth NGO", type: "NGO", projects: 2, status: "active" }
     ]
   });
 
@@ -417,6 +478,16 @@ const AdminDashboard = () => {
             >
               Collaborations
             </button>
+            <button
+  onClick={() => setActiveTab('mentors')}
+  className={`px-6 py-4 text-sm font-medium transition-all duration-300 ${
+    activeTab === 'mentors'
+      ? 'tab-active'
+      : 'text-cyan-300 hover:text-cyan-100'
+  }`}
+>
+  Interested Mentors
+</button>
           </div>
 
           <div className="p-6">
@@ -500,8 +571,8 @@ const AdminDashboard = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-cyan-900">
-                      {[...users.students, ...users.mentors].map((user) => (
-                        <tr key={user.id} className="table-row">
+                      {[...users.students, ...users.mentors].map((user, index) => (
+                        <tr key={index} className="table-row">
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm font-medium text-cyan-100">{user.name}</div>
                           </td>
@@ -536,8 +607,8 @@ const AdminDashboard = () => {
                 {/* Projects List */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {projects && projects.length > 0 ? (
-                    projects.map((project) => (
-                      <div key={project._id} className="neuro-card p-6">
+                    projects.map((project, index) => (
+                      <div key={index} className="neuro-card p-6">
                         <div className="flex justify-between items-start mb-4">
                           <div>
                             <h3 className="text-lg font-semibold cyan-glow">{project.title}</h3>
@@ -603,7 +674,7 @@ const AdminDashboard = () => {
                 {/* SDG Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {sdgStats.map((stat) => (
-                    <div key={stat.id} className="neuro-card p-6">
+                    <div key={stat.key} className="neuro-card p-6">
                       <div className="flex items-center justify-between mb-4">
                         <h3 className="text-lg font-semibold cyan-glow">SDG {stat.sdg}</h3>
                         <span className={`status-badge ${
@@ -620,42 +691,70 @@ const AdminDashboard = () => {
               </div>
             )}
 
-            {activeTab === 'collaborations' && (
-              <div className="space-y-6">
-                <h2 className="text-2xl font-bold mb-4">Collaboration Requests</h2>
-                <div className="space-y-4">
-                  {collaborationRequests.map((request) => (
-                    <div key={request._id} className="bg-white p-4 rounded-lg shadow-md">
-                      <h3 className="text-lg font-bold">{request.collaboratorName}</h3>
-                      <p>{request.organization}</p>
-                      <p>{request.description}</p>
-                      <p>Status: {request.status}</p>
-                      <div className="flex gap-4 mt-4">
-                        <button
-                          onClick={() => handleRequestAction(request._id, "Approved")}
-                          className="bg-green-500 text-white px-4 py-2 rounded-lg"
-                        >
-                          Approve
-                        </button>
-                        <button
-                          onClick={() => handleRequestAction(request._id, "Rejected")}
-                          className="bg-red-500 text-white px-4 py-2 rounded-lg"
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+
+{activeTab === 'mentors' && (
+  <div className="space-y-6">
+    <h2 className="text-2xl font-bold mb-4 text-cyan-300">Mentor Requests</h2>
+    {isLoading ? (
+      <div className="text-cyan-200">Loading...</div>
+    ) : error ? (
+      <div className="text-red-400">{error}</div>
+    ) : mentorRequests.length === 0 ? (
+      <div className="text-cyan-200">No mentor requests found</div>
+    ) : (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {mentorRequests.map((request) => (
+          <div key={request._id} className="neuro-card p-6">
+            <div className="flex justify-between items-start mb-4">
+              <div>
+                <h3 className="text-lg font-semibold cyan-glow">
+                  {request.projectTitle || 'Untitled Project'}
+                </h3>
+                <p className="text-cyan-200">
+                  Project ID: {request.projectId}
+                </p>
+                <p className="text-cyan-300 opacity-70">
+                  Status: {request.status || 'Pending'}
+                </p>
+              </div>
+              <span className={`status-badge ${
+                request.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-300' :
+                request.status === 'Approved' ? 'bg-green-500/20 text-green-300' :
+                'bg-red-500/20 text-red-300'
+              }`}>
+                {request.status || 'Pending'}
+              </span>
+            </div>
+            
+            {request.status === 'Pending' && (
+              <div className="flex gap-4 mt-4">
+                <button
+                  onClick={() => handleMentorshipAction(request.projectId, request.mentorId, 'Approved')}
+                  className="bg-green-500/20 hover:bg-green-500/30 text-green-300 px-4 py-2 rounded-lg flex-1 transition-colors"
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={() => handleMentorshipAction(request.projectId, request.mentorId, 'Rejected')}
+                  className="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-4 py-2 rounded-lg flex-1 transition-colors"
+                >
+                  Reject
+                </button>
               </div>
             )}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+)}
 
             {activeTab === 'collaborations' && (
               <div className="space-y-6">
                 <h2 className="text-2xl font-bold mb-4">Collaboration Requests</h2>
                 <div className="space-y-4">
-                  {collaborationRequests.map((request) => (
-                    <div key={request._id} className="bg-white p-4 rounded-lg shadow-md">
+                  {collaborationRequests.map((request, index) => (
+                    <div key={index} className="bg-white p-4 rounded-lg shadow-md">
                       <h3 className="text-lg font-bold">{request.collaboratorName}</h3>
                       <p>{request.organization}</p>
                       <p>{request.description}</p>

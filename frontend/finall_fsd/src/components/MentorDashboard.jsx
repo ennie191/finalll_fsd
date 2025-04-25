@@ -1,7 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { FaUserGraduate, FaChalkboardTeacher, FaClipboardCheck, FaClock, FaCalendarAlt, FaComments, FaFileAlt } from 'react-icons/fa';
 
 const MentorDashboard = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [selectedProject, setSelectedProject] = useState('');
+  const [availableProjects, setAvailableProjects] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const mentorId = "6800e357fb69aeea30cb3ae2"; // Hardcoded mentor ID
+  const [myRequests, setMyRequests] = useState([]);
+const [requestsLoading, setRequestsLoading] = useState(false);
+
+// Add this useEffect after other useEffect
+useEffect(() => {
+  const fetchMyRequests = async () => {
+    setRequestsLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/mentorship/requests');
+      const data = await response.json();
+      // Filter requests for this mentor
+      const mentorRequests = data.filter(
+        request => request.mentorId === mentorId
+      );
+      setMyRequests(mentorRequests);
+    } catch (err) {
+      setError('Failed to fetch mentorship requests');
+      console.error(err);
+    } finally {
+      setRequestsLoading(false);
+    }
+  };
+
+  fetchMyRequests();
+}, [mentorId]);
+  // Fetch available projects
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/projects');
+        const data = await response.json();
+        // Filter out pending projects
+        const filtered = data.filter(project => project.status !== 'Pending');
+        setAvailableProjects(filtered);
+      } catch (err) {
+        setError('Failed to fetch projects');
+        console.error(err);
+      }
+    };
+    fetchProjects();
+  }, []);
+  const handleMentorshipRequest = async () => {
+    if (!selectedProject) {
+      alert('Please select a project');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/mentorship/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          projectId: selectedProject,
+          mentorId: mentorId
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send request');
+      }
+
+      alert('Mentorship request sent successfully!');
+      setShowForm(false);
+      setSelectedProject('');
+    } catch (err) {
+      setError('Failed to send mentorship request');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   const [mentorships, setMentorships] = useState([
     {
       id: 1,
@@ -156,45 +236,79 @@ const MentorDashboard = () => {
 
         {/* Mentorship Requests */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-cyan-300 mb-4 drop-shadow-[0_0_6px_rgba(103,232,249,0.5)]">
-            Mentorship Requests
-          </h2>
-          <div className="bg-blue-950 rounded-xl shadow-[6px_6px_12px_rgba(10,10,40,0.8),_-6px_-6px_12px_rgba(90,90,130,0.2)] border border-blue-800">
-            {requests.length === 0 ? (
-              <div className="p-6 text-center text-cyan-400">
-                No pending mentorship requests
-              </div>
-            ) : (
-              requests.map(request => (
-                <div key={request.id} className="p-6 border-b border-blue-800 last:border-b-0">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-lg font-semibold text-cyan-200">{request.studentName}</h3>
-                      <p className="text-cyan-300">{request.projectTitle}</p>
-                      <p className="text-cyan-400">{request.department}</p>
-                      <p className="text-sm text-cyan-200 mt-2">{request.description}</p>
-                      <div className="flex gap-2 mt-3">
-                        {request.skills?.map((skill, index) => (
-                          <span key={index} className="bg-blue-800 px-3 py-1 rounded-full text-sm text-cyan-200 shadow-[inset_1px_1px_2px_rgba(0,0,0,0.2),_inset_-1px_-1px_2px_rgba(255,255,255,0.1)]">
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <button className="bg-green-600 text-cyan-50 px-3 py-1 rounded-lg hover:bg-green-500 shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.3),_inset_2px_2px_4px_rgba(255,255,255,0.1)] transition-all hover:shadow-[inset_-1px_-1px_2px_rgba(0,0,0,0.2),_inset_1px_1px_2px_rgba(255,255,255,0.1)]">
-                        Accept
-                      </button>
-                      <button className="bg-red-700 text-cyan-50 px-3 py-1 rounded-lg hover:bg-red-600 shadow-[inset_-2px_-2px_4px_rgba(0,0,0,0.3),_inset_2px_2px_4px_rgba(255,255,255,0.1)] transition-all hover:shadow-[inset_-1px_-1px_2px_rgba(0,0,0,0.2),_inset_1px_1px_2px_rgba(255,255,255,0.1)]">
-                        Decline
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
+  <div className="flex justify-between items-center mb-4">
+    <h2 className="text-2xl font-bold text-cyan-300">Mentorship Requests</h2>
+    <button
+      onClick={() => setShowForm(!showForm)}
+      className="bg-cyan-600 text-cyan-50 px-4 py-2 rounded-lg hover:bg-cyan-500"
+    >
+      Request New Mentorship
+    </button>
+  </div>
+
+  {showForm && (
+    <div className="bg-blue-900 p-6 rounded-xl mb-6">
+      <h3 className="text-xl font-bold mb-4">Request Mentorship</h3>
+      <div className="mb-4">
+        <label className="block text-sm mb-2">Select Project</label>
+        <select
+          value={selectedProject}
+          onChange={(e) => setSelectedProject(e.target.value)}
+          className="w-full bg-blue-800 p-2 rounded-lg"
+        >
+          <option value="">Choose a project...</option>
+          {availableProjects.map(project => (
+            <option key={project._id} value={project._id}>
+              {project.title} - {project.status}
+            </option>
+          ))}
+        </select>
+      </div>
+      <button
+        onClick={handleMentorshipRequest}
+        disabled={loading}
+        className="bg-cyan-600 text-white px-4 py-2 rounded-lg disabled:opacity-50 hover:bg-cyan-500"
+      >
+        {loading ? 'Sending...' : 'Send Request'}
+      </button>
+    </div>
+  )}
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {requestsLoading ? (
+      <div className="text-cyan-300">Loading requests...</div>
+    ) : myRequests.length === 0 ? (
+      <div className="text-cyan-300">No mentorship requests</div>
+    ) : (
+      myRequests.map((request) => (
+        <div key={request._id} className="bg-blue-900 p-6 rounded-xl border border-blue-700">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-lg font-semibold text-cyan-200">
+                {request.projectTitle}
+              </h3>
+              <p className="text-cyan-300 mt-2">
+                Status: 
+                <span className={`ml-2 px-2 py-1 rounded-full text-sm ${
+                  request.status === 'Pending' ? 'bg-yellow-500/20 text-yellow-300' :
+                  request.status === 'Approved' ? 'bg-green-500/20 text-green-300' :
+                  'bg-red-500/20 text-red-300'
+                }`}>
+                  {request.status}
+                </span>
+              </p>
+            </div>
           </div>
+          <p className="text-sm text-cyan-300">
+            Requested on: {new Date(request.createdAt).toLocaleDateString()}
+          </p>
         </div>
+      ))
+    )}
+  </div>
+</div>
+
+
 
         {/* Office Hours */}
         <div>
