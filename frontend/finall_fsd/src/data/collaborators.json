@@ -1,0 +1,74 @@
+[
+    {
+      "_id": "6800e357fb69aeea30cb4001",
+      "name": "ECOARMY",
+      "logo": "https://via.placeholder.com/150/4CAF50/FFFFFF?text=EA",
+      "type": "Environmental Collective",
+      "projects": ["Coastal Cleanup", "Tree Planting Drives"],
+      "status": "Active"
+    },
+    {
+      "_id": "6800e357fb69aeea30cb4002",
+      "name": "focolare",
+      "logo": "https://via.placeholder.com/150/2196F3/FFFFFF?text=FO",
+      "type": "Global Movement",
+      "projects": ["Community Building", "Youth Programs"],
+      "status": "Active"
+    },
+    {
+      "_id": "6800e357fb69aeea30cb4003",
+      "name": "Handmaids of Blessed Trinity",
+      "logo": "https://via.placeholder.com/150/9C27B0/FFFFFF?text=HB",
+      "type": "Religious Organization",
+      "projects": ["Education Initiatives", "Healthcare Outreach"],
+      "status": "Active"
+    },
+    {
+      "_id": "6800e357fb69aeea30cb4004",
+      "name": "Mumbai BEACH",
+      "logo": "https://via.placeholder.com/150/FF9800/FFFFFF?text=MB",
+      "type": "Conservation Group",
+      "projects": ["Marine Protection", "Eco-Tourism"],
+      "status": "Active"
+    },
+    {
+      "_id": "6800e357fb69aeea30cb4005",
+      "name": "AAJI CARE",
+      "logo": "https://via.placeholder.com/150/E91E63/FFFFFF?text=AC",
+      "type": "Healthcare Network",
+      "projects": ["Elderly Care", "Mobile Clinics"],
+      "status": "Active"
+    },
+    {
+      "_id": "6800e357fb69aeea30cb4006",
+      "name": "SankalpTaru",
+      "logo": "https://via.placeholder.com/150/FF5722/FFFFFF?text=ST",
+      "type": "Tree Plantation NGO",
+      "projects": ["Urban Greening", "Biodiversity Projects"],
+      "status": "Active"
+    },
+    {
+      "_id": "6800e357fb69aeea30cb4007",
+      "name": "GreenPeace",
+      "logo": "https://via.placeholder.com/150/8BC34A/FFFFFF?text=GP",
+      "type": "Environmental NGO",
+      "projects": ["Climate Action", "Wildlife Protection"],
+      "status": "Active"
+    },
+    {
+      "_id": "6800e357fb69aeea30cb4008",
+      "name": "UNICEF",
+      "logo": "https://via.placeholder.com/150/3F51B5/FFFFFF?text=UN",
+      "type": "Children's Fund",
+      "projects": ["Child Welfare", "Education Programs"],
+      "status": "Active"
+    },
+    {
+      "_id": "6800e357fb69aeea30cb4009",
+      "name": "World Wildlife Fund",
+      "logo": "https://via.placeholder.com/150/FFEB3B/FFFFFF?text=WW",
+      "type": "Wildlife Conservation",
+      "projects": ["Endangered Species", "Habitat Preservation"],
+      "status": "Active"
+    }
+  ]

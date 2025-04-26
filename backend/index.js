@@ -8,6 +8,8 @@ const collaborationRoutes = require("./routes/collaborationRoutes"); // Import c
 const statsRoutes = require("./routes/statsRoutes"); // Import stats routes
 const adminRoutes = require("./routes/adminRoutes"); // Import admin routes
 const mentorshipRoutes = require("./routes/mentorshipRoutes"); // Import mentorship routes
+const controlRoutes = require("./routes/controlRoutes"); // Import control routes
+const mentorRoutes = require("./routes/mentorRoutes"); // Import mentor routes
 // Initialize the app
 const app = express();
 
@@ -50,6 +52,8 @@ app.use("/api/collaboration", collaborationRoutes); // Collaboration routes
 app.use("/api/stats", statsRoutes); // Statistics routes
 app.use("/api/admin", adminRoutes); // Admin routes
 app.use("/api/mentorship", mentorshipRoutes); // Mentorship routes
+app.use("/api/collaborators", controlRoutes);
+app.use("/api/mentors", mentorRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

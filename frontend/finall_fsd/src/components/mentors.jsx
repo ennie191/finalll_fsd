@@ -1,21 +1,46 @@
-// src/pages/Mentors.jsx
-import React, { useState } from 'react';
-import MentorCard from '../components/MentorCard';
-import { mentorsData } from '../data/mentorsData';
-
-const domains = [
-  'Computer Science',
-  'Electronics & Computer Science', 
-  'Mechanical',
-  'Artificial Intelligence & Data Science',
-];
+import React, { useState, useEffect } from 'react';
+import MentorCard from './MentorCard';
 
 const Mentors = () => {
+  const [mentors, setMentors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [activeDomain, setActiveDomain] = useState('All');
 
+  const domains = [
+    'Computer Science',
+    'Electronics & Computer Science',
+    'Mechanical',
+    'Artificial Intelligence & Data Science',
+  ];
+
+  useEffect(() => {
+    const fetchMentors = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/mentors');
+        const data = await response.json();
+        setMentors(data);
+      } catch (error) {
+        setError('Failed to fetch mentors');
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMentors();
+  }, []);
+
   const filteredMentors = activeDomain === 'All' 
-    ? mentorsData 
-    : mentorsData.filter(mentor => mentor.domain === activeDomain);
+    ? mentors 
+    : mentors.filter(mentor => mentor.domain === activeDomain);
+
+  const handleImageError = (e) => {
+    e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(e.target.alt)}&background=random`;
+  };
+
+  if (loading) return <div>Loading mentors...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
@@ -58,18 +83,9 @@ const Mentors = () => {
         {/* Mentors Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredMentors.map((mentor) => (
-            <MentorCard key={mentor.id} mentor={mentor} />
+            <MentorCard key={mentor._id} mentor={mentor} onImageError={handleImageError} />
           ))}
         </div>
-        <div className="text-center mt-8">
-  <h3 className="text-xl font-bold text-gray-100 mb-3">Want to join as a mentor?</h3>
-  <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-    Share your expertise with our students and guide the next generation of engineers
-  </p>
-  <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg shadow-sm transition-colors">
-    Apply Now
-  </button>
-</div>
       </div>
     </div>
   );
