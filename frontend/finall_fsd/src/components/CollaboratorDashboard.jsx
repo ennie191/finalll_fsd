@@ -305,17 +305,7 @@ const handleRequestAction = async (projectId, studentId, status) => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex flex-wrap gap-3 mt-6">
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 shadow-lg shadow-blue-700/30 transition-all">
-                      Update Progress
-                    </button>
-                    <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-500 shadow-lg shadow-purple-700/30 transition-all">
-                      Schedule Meeting
-                    </button>
-                    <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500 shadow-lg shadow-indigo-700/30 transition-all">
-                      View Documents
-                    </button>
-                  </div>
+                  
                 </div>
               ))}
             </div>
@@ -472,23 +462,7 @@ const handleRequestAction = async (projectId, studentId, status) => {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-200">
       {/* Top navbar - similar to the reference image */}
-      <div className="bg-gray-800 border-b border-gray-700 px-4 py-2 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <img src="/api/placeholder/40/40" alt="TISD Logo" className="h-10" />
-          <div>
-            <h1 className="text-cyan-400 font-bold text-xl">TISD</h1>
-            <p className="text-gray-400 text-xs">Tracking Innovation for Sustainable Development</p>
-          </div>
-        </div>
-        <div className="hidden md:flex space-x-3">
-          <button className="px-4 py-2 text-gray-300 hover:text-white">Home</button>
-          <button className="px-4 py-2 text-gray-300 hover:text-white">Mentors</button>
-          <button className="px-4 py-2 text-gray-300 hover:text-white">Collaborators</button>
-          <button className="px-4 py-2 text-gray-300 hover:text-white">Media</button>
-          <button className="px-4 py-2 text-gray-300 hover:text-white">Contact</button>
-          <button className="px-4 py-2 text-cyan-300 bg-gray-700 rounded-lg">Login</button>
-        </div>
-      </div>
+      
 
       <div className="flex flex-col md:flex-row">
         {/* Sidebar - now scrolls with content */}

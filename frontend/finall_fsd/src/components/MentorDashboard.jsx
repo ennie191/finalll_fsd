@@ -555,9 +555,7 @@ useEffect(() => {
                     <h3 className="text-lg font-semibold text-cyan-200">{slot.day}</h3>
                     <p className="text-cyan-300">{slot.time}</p>
                   </div>
-                  <button className="text-cyan-400 hover:text-cyan-300 bg-blue-800 px-3 py-1 rounded-lg shadow-[inset_-1px_-1px_3px_rgba(0,0,0,0.3),_inset_1px_1px_3px_rgba(255,255,255,0.1)] transition-all hover:shadow-[inset_-1px_-1px_2px_rgba(0,0,0,0.2),_inset_1px_1px_2px_rgba(255,255,255,0.1)]">
-                    Edit Slot
-                  </button>
+                  
                 </div>
 
                 <div className="space-y-3">
@@ -567,9 +565,7 @@ useEffect(() => {
                         <div className="font-semibold text-cyan-200">{student.name}</div>
                         <div className="text-sm text-cyan-300">{student.topic}</div>
                       </div>
-                      <button className="text-cyan-400 hover:text-cyan-300 bg-blue-800 px-3 py-1 rounded-lg shadow-[inset_-1px_-1px_3px_rgba(0,0,0,0.3),_inset_1px_1px_3px_rgba(255,255,255,0.1)] transition-all hover:shadow-[inset_-1px_-1px_2px_rgba(0,0,0,0.2),_inset_1px_1px_2px_rgba(255,255,255,0.1)]">
-                        View Details
-                      </button>
+                      
                     </div>
                   ))}
                   {slot.students.length === 0 && (

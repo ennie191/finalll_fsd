@@ -88,6 +88,10 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 100;
+  overflow-y: auto; /* Only show scrollbar when needed */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: var(--cyan-primary) var(--dark-blue-darker); /* For Firefox */
+
 }
 
 .sidebar.open {
@@ -720,4 +724,318 @@ input[type="file"] {
   .project-details {
     grid-template-columns: 1fr;
   }
+}
+/* Enhanced Glow Effects */
+.glow-text {
+  background: linear-gradient(90deg, #00e5ff, #0aff9d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 8px rgba(10, 255, 157, 0.3);
+  animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 0 0 8px rgba(10, 255, 157, 0.3); }
+  100% { text-shadow: 0 0 15px rgba(0, 229, 255, 0.6); }
+}
+
+/* 3D Card Effects */
+.project-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(10, 255, 157, 0.05));
+  border-radius: inherit;
+  z-index: -1;
+  transform: translateZ(-10px);
+}
+
+.project-card:hover {
+  transform: perspective(1000px) translateY(-10px) rotateX(5deg);
+  box-shadow: 0 25px 40px rgba(5, 16, 29, 0.5),
+              0 0 30px rgba(0, 229, 255, 0.3);
+}
+
+/* Glass Morphism Panels */
+.neuro-form, .modal-content, .sidebar {
+  background: rgba(10, 25, 47, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+/* Animated Gradient Borders */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 1px;
+  background: linear-gradient(135deg, 
+    rgba(0, 229, 255, 0.5), 
+    rgba(10, 255, 157, 0.5));
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Enhanced Buttons */
+.neuro-button {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.neuro-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 229, 255, 0.3),
+    rgba(0, 229, 255, 0)
+  );
+  transform: rotate(45deg);
+  z-index: -1;
+  transition: all 0.5s ease;
+}
+
+.neuro-button:hover::before {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Floating Animation for Icons */
+.section-icon, .upload-icon {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Enhanced Input Fields */
+.neuro-input {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+.neuro-input:focus {
+  border-color: var(--cyan-primary);
+  box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.2);
+}
+
+/* Status Badge Glow */
+.status-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+.status-badge::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(10, 255, 157, 0.3),
+    rgba(10, 255, 157, 0)
+  );
+  transform: rotate(45deg);
+  z-index: -1;
+  animation: badgeGlow 2s linear infinite;
+}
+
+@keyframes badgeGlow {
+  0% { transform: rotate(45deg) translate(-30%, -30%); }
+  100% { transform: rotate(45deg) translate(30%, 30%); }
+}
+
+/* Upload Card Hover Effect */
+.upload-card {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.upload-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 229, 255, 0.1),
+    rgba(0, 229, 255, 0)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.upload-card:hover::before {
+  opacity: 1;
+}
+
+.upload-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyan-primary), var(--accent-green));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.upload-card:hover::after {
+  transform: scaleX(1);
+}
+
+/* Sidebar Enhancements */
+.sidebar-item {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.sidebar-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--cyan-primary), var(--accent-green));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-item:hover::before, 
+.sidebar-item.active::before {
+  transform: scaleY(1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .project-card {
+    transform: none !important;
+  }
+  
+  .project-card:hover {
+    transform: translateY(-5px) !important;
+  }
+}
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-blue-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cyan-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-green);
+}
+body {
+  background: linear-gradient(-45deg, #061220, #0a1929, #112240, #0a1929);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, 
+              rgba(16, 36, 69, 0.5), 
+              rgba(10, 25, 47, 0.7), 
+              rgba(16, 36, 69, 0.5));
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+/* Sidebar Scrollbar Styling */
+.sidebar {
+  overflow-y: auto; /* Only show scrollbar when needed */
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: var(--cyan-primary) var(--dark-blue-darker); /* For Firefox */
+}
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari) */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: var(--dark-blue-darker);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--cyan-primary);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-green);
+  box-shadow: 0 0 5px var(--accent-green-glow);
+}
+
+/* Ensure proper height calculation */
+.sidebar-menu {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 8px; /* Prevent content from touching scrollbar */
+}
+
+/* Hide scrollbar when not needed */
+.sidebar:not(:hover)::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Smooth scrolling behavior */
+.sidebar {
+  scroll-behavior: smooth;
+}
+.new-project-btn {
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  transform: translateY(-50%);
+  z-index: 10;
 }
