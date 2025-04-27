@@ -130,7 +130,7 @@ const handleRequestAction = async (projectId, studentId, status) => {
     ],
     stats: {
       projectsCompleted: 15,
-      activeCollaborations: 4,
+      activeCollaborations: 2,
       studentsGuided: 25,
       successRate: 92
     },

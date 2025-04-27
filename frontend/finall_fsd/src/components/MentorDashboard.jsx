@@ -423,18 +423,18 @@ useEffect(() => {
         {/* Mentorship Requests */}
         <div className="mb-8">
   <div className="flex justify-between items-center mb-4">
-    <h2 className="text-2xl font-bold text-cyan-300">Mentorship Requests</h2>
+    <h2 className="text-2xl font-bold text-cyan-300">Interested in Mentorship</h2>
     <button
       onClick={() => setShowForm(!showForm)}
       className="bg-cyan-600 text-cyan-50 px-4 py-2 rounded-lg hover:bg-cyan-500"
     >
-      Request New Mentorship
+      Add a New Mentorship
     </button>
   </div>
 
   {showForm && (
     <div className="bg-blue-900 p-6 rounded-xl mb-6">
-      <h3 className="text-xl font-bold mb-4">Request Mentorship</h3>
+      <h3 className="text-xl font-bold mb-4">Add Mentorship</h3>
       <div className="mb-4">
         <label className="block text-sm mb-2">Select Project</label>
         <select
