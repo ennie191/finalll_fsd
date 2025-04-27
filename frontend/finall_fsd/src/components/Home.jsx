@@ -478,9 +478,9 @@ const Home = () => {
       <section id="sdg-dashboard" className="mb-16">
         <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white rounded-xl p-8 shadow-lg">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-4">SDG Dashboard</h2>
+            <h2 className="text-3xl font-bold text-white mb-4"></h2>
             <p className="text-gray-400">
-              Explore projects by Sustainable Development Goals
+             
             </p>
           </div>
           <div className="relative">

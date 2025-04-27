@@ -127,28 +127,28 @@ const SDGDashboard = ({ projects = [] }) => {
         ))}
       </div>
 
-      {/* Summary Stats */}
+      {/* Summary Stats
       <div className="mt-12 bg-gray-800/50 rounded-xl p-6 max-w-4xl mx-auto">
-        <h3 className="text-xl font-semibold text-white mb-4">SDG Impact Summary</h3>
+        <h3 className="text-xl font-semibold text-white mb-4"></h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-gray-700/50 p-4 rounded-lg">
-            <div className="text-gray-300 text-sm">Total Projects</div>
+            <div className="text-gray-300 text-sm"></div>
             <div className="text-white text-2xl font-bold">{projects.length}</div>
           </div>
           <div className="bg-gray-700/50 p-4 rounded-lg">
-            <div className="text-gray-300 text-sm">SDGs Addressed</div>
+            <div className="text-gray-300 text-sm"></div>
             <div className="text-white text-2xl font-bold">
               {Object.values(sdgCounts).filter(count => count > 0).length}
             </div>
           </div>
           <div className="bg-gray-700/50 p-4 rounded-lg">
-            <div className="text-gray-300 text-sm">Most Active SDG</div>
+            <div className="text-gray-300 text-sm"></div>
             <div className="text-white text-2xl font-bold">
               {Object.entries(sdgCounts).reduce((a, b) => a[1] > b[1] ? a : b)[0] || '-'}
             </div>
           </div>
           <div className="bg-gray-700/50 p-4 rounded-lg">
-            <div className="text-gray-300 text-sm">Avg. SDGs per Project</div>
+            <div className="text-gray-300 text-sm"></div>
             <div className="text-white text-2xl font-bold">
               {projects.length > 0 
                 ? (Object.values(sdgCounts).reduce((a, b) => a + b, 0) / projects.length).toFixed(1)
@@ -156,9 +156,9 @@ const SDGDashboard = ({ projects = [] }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default SDGDashboard;
+export default SDGDashboard;      
