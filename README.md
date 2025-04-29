@@ -34,8 +34,7 @@ The project demonstrates the culmination of skills acquired throughout the Full 
 ## Technologies Used
 
 - **Front-End**:
-  - HTML5
-  - CSS3
+  - Tailwind CSS
   - JavaScript (ES6)
   - React.js
 - **Back-End**:
@@ -47,8 +46,7 @@ The project demonstrates the culmination of skills acquired throughout the Full 
 - **Others**:
   - JWT for authentication
   - Axios for HTTP requests
-  - Dotenv for environment variable management ([Quickstart for repositories - GitHub Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories?utm_source=chatgpt.com), [Transferring a repository - GitHub Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/transferring-a-repository?utm_source=chatgpt.com))
-
+  - Dotenv for environment variable management 
 ## Installation
 
 1. **Clone the repository**:
