@@ -98,7 +98,7 @@ The project demonstrates the culmination of skills acquired throughout the Full 
 
 Once the application is running:
 
-- Access the front-end at `http://localhost:3000`.
+- Access the front-end at `http://localhost:5173`.
 - The back-end API runs on `http://localhost:5000`.
 
 You can register a new user, log in, and perform CRUD operations on the data entities.
