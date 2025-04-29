@@ -34,6 +34,7 @@ The project demonstrates the culmination of skills acquired throughout the Full 
 ## Technologies Used
 
 - **Front-End**:
+  - HTML5
   - Tailwind CSS
   - JavaScript (ES6)
   - React.js
