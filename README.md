@@ -3,6 +3,8 @@
 
 Project Video Link: https://drive.google.com/file/d/14WWl1Yf6FxG6PLAe4m0qOfwOJvQVjQw1/view?usp=sharing
 
+Presentation Link: https://www.canva.com/design/DAGmBmYyeFU/Fjmw5EIoSDima8oTuiYDHA/edit?utm_content=DAGmBmYyeFU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 This repository contains the final project for the Full Stack Development course, showcasing a comprehensive application that integrates both front-end and back-end technologies.
 
 ## Table of Contents
