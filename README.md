@@ -2,6 +2,7 @@
 # Final Full Stack Development Project
 
 Project Video Link: https://drive.google.com/file/d/14WWl1Yf6FxG6PLAe4m0qOfwOJvQVjQw1/view?usp=sharing
+
 This repository contains the final project for the Full Stack Development course, showcasing a comprehensive application that integrates both front-end and back-end technologies.
 
 ## Table of Contents
